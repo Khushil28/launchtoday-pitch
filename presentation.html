@@ -1363,92 +1363,92 @@
       line-height: 1.1;
     }
 
-    .services-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      grid-template-rows: 1fr 1fr;
-      gap: 12px;
-      flex: 1;
-      min-height: 0;
-    }
-
-    .service-card {
-      background-color: white;
-      border-radius: 12px;
-      padding: 14px 18px;
-      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03);
+    .services-strip {
       display: flex;
       flex-direction: column;
+      gap: 11px;
+      flex: 1;
+      min-height: 0;
+      justify-content: center;
+    }
+
+    .service-row-7 {
+      display: flex;
+      align-items: stretch;
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.06);
       border: 1px solid #E2E8F0;
-      position: relative;
-      transition: all 0.3s ease;
+      transition: box-shadow 0.2s;
     }
 
-    .service-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
-      border-color: #00C896;
+    .service-row-7:hover {
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
     }
 
-    .service-card .card-header {
+    .row-bar-7 {
+      width: 6px;
+      flex-shrink: 0;
+    }
+
+    .row-label-7 {
       display: flex;
       align-items: center;
-      gap: 12px;
-      margin-bottom: 10px;
-      padding-bottom: 10px;
-      border-bottom: 2px solid #F1F5F9;
+      gap: 11px;
+      padding: 14px 16px;
+      width: 196px;
+      min-width: 196px;
+      border-right: 1px solid #F1F5F9;
+      flex-shrink: 0;
     }
 
-    .icon-box {
-      width: 38px;
-      height: 38px;
+    .row-icon-7 {
+      width: 36px;
+      height: 36px;
       border-radius: 8px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 16px;
+      font-size: 15px;
       flex-shrink: 0;
     }
 
-    .icon-box.icon-blue  { background-color: #EFF6FF; color: #1E3A5F; }
-    .icon-box.icon-green { background-color: #F0FDF4; color: #059669; }
-    .icon-box.icon-purple{ background-color: #F5F3FF; color: #7C3AED; }
-    .icon-box.icon-orange{ background-color: #FFF7ED; color: #EA580C; }
-
-    .service-card .card-title {
-      font-size: 16px;
+    .row-title-7 {
+      font-size: 13px;
       font-weight: 700;
       color: #1E3A5F;
+      line-height: 1.25;
       margin: 0;
     }
 
-    .service-list {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 6px 10px;
-    }
-
-    .service-list .list-item {
+    .row-tags-7 {
       display: flex;
-      align-items: flex-start;
-      gap: 10px;
+      flex-wrap: wrap;
+      gap: 6px;
+      padding: 12px 16px;
+      flex: 1;
+      align-content: center;
     }
 
-    .check-icon {
-      color: #00C896;
-      font-size: 13px;
-      margin-top: 2px;
-      flex-shrink: 0;
-    }
-
-    .item-text {
+    .tag-7 {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 11px;
+      border-radius: 20px;
       font-family: 'Inter', sans-serif;
-      font-size: 12px;
-      color: #475569;
-      line-height: 1.3;
+      font-size: 11.5px;
       font-weight: 500;
-      margin: 0;
+      white-space: nowrap;
     }
+
+    .tag-7 i { font-size: 9px; }
+
+    .tag-blue   { background: #EFF6FF; color: #1E40AF; }
+    .tag-green  { background: #ECFDF5; color: #15803D; }
+    .tag-purple { background: #F5F3FF; color: #6D28D9; }
+    .tag-orange { background: #FFF7ED; color: #C2410C; }
 
     .bg-pattern-7 {
       position: absolute;
@@ -3426,70 +3426,79 @@
             <div class="main-heading"><p>Services We Cover — Full Stack Compliance</p></div>
           </div>
 
-          <div class="services-grid">
+          <div class="services-strip">
+
             <!-- Incorporation Services -->
-            <div class="service-card">
-              <div class="card-header">
-                <div class="icon-box icon-blue"><i class="fa-solid fa-building"></i></div>
-                <p class="card-title">Incorporation Services</p>
+            <div class="service-row-7">
+              <div class="row-bar-7" style="background:#1E3A5F;"></div>
+              <div class="row-label-7">
+                <div class="row-icon-7" style="background:#EFF6FF;color:#1E3A5F;"><i class="fa-solid fa-building"></i></div>
+                <p class="row-title-7">Incorporation Services</p>
               </div>
-              <div class="service-list">
-                <div class="list-item"><i class="fa-solid fa-check check-icon"></i><p class="item-text">Private Limited Registration</p></div>
-                <div class="list-item"><i class="fa-solid fa-check check-icon"></i><p class="item-text">LLP Registration</p></div>
-                <div class="list-item"><i class="fa-solid fa-check check-icon"></i><p class="item-text">One Person Company (OPC)</p></div>
-                <div class="list-item"><i class="fa-solid fa-check check-icon"></i><p class="item-text">Section 8 Company</p></div>
-                <div class="list-item"><i class="fa-solid fa-check check-icon"></i><p class="item-text">Partnership Firm</p></div>
-                <div class="list-item"><i class="fa-solid fa-check check-icon"></i><p class="item-text">Startup India Recognition</p></div>
-                <div class="list-item"><i class="fa-solid fa-check check-icon"></i><p class="item-text">MSME / Udyam Registration</p></div>
+              <div class="row-tags-7">
+                <span class="tag-7 tag-blue"><i class="fa-solid fa-check"></i>Pvt Limited</span>
+                <span class="tag-7 tag-blue"><i class="fa-solid fa-check"></i>LLP</span>
+                <span class="tag-7 tag-blue"><i class="fa-solid fa-check"></i>One Person Co.</span>
+                <span class="tag-7 tag-blue"><i class="fa-solid fa-check"></i>Section 8 Company</span>
+                <span class="tag-7 tag-blue"><i class="fa-solid fa-check"></i>Partnership Firm</span>
+                <span class="tag-7 tag-blue"><i class="fa-solid fa-check"></i>Startup India</span>
+                <span class="tag-7 tag-blue"><i class="fa-solid fa-check"></i>MSME / Udyam</span>
               </div>
             </div>
+
             <!-- Tax Registrations -->
-            <div class="service-card">
-              <div class="card-header">
-                <div class="icon-box icon-green"><i class="fa-solid fa-file-invoice-dollar"></i></div>
-                <p class="card-title">Tax Registrations</p>
+            <div class="service-row-7">
+              <div class="row-bar-7" style="background:#059669;"></div>
+              <div class="row-label-7">
+                <div class="row-icon-7" style="background:#ECFDF5;color:#059669;"><i class="fa-solid fa-file-invoice-dollar"></i></div>
+                <p class="row-title-7">Tax Registrations</p>
               </div>
-              <div class="service-list">
-                <div class="list-item"><i class="fa-solid fa-check check-icon"></i><p class="item-text">GST Registration</p></div>
-                <div class="list-item"><i class="fa-solid fa-check check-icon"></i><p class="item-text">TAN &amp; TDS Registration</p></div>
-                <div class="list-item"><i class="fa-solid fa-check check-icon"></i><p class="item-text">Professional Tax (PT)</p></div>
-                <div class="list-item"><i class="fa-solid fa-check check-icon"></i><p class="item-text">Import Export Code (IEC)</p></div>
-                <div class="list-item"><i class="fa-solid fa-check check-icon"></i><p class="item-text">Shop &amp; Establishment Act</p></div>
-                <div class="list-item"><i class="fa-solid fa-check check-icon"></i><p class="item-text">PF &amp; ESIC Registration</p></div>
+              <div class="row-tags-7">
+                <span class="tag-7 tag-green"><i class="fa-solid fa-check"></i>GST Registration</span>
+                <span class="tag-7 tag-green"><i class="fa-solid fa-check"></i>TAN &amp; TDS</span>
+                <span class="tag-7 tag-green"><i class="fa-solid fa-check"></i>Professional Tax</span>
+                <span class="tag-7 tag-green"><i class="fa-solid fa-check"></i>Import Export Code</span>
+                <span class="tag-7 tag-green"><i class="fa-solid fa-check"></i>Shop &amp; Establishment</span>
+                <span class="tag-7 tag-green"><i class="fa-solid fa-check"></i>PF &amp; ESIC</span>
               </div>
             </div>
+
             <!-- Ongoing Compliance -->
-            <div class="service-card">
-              <div class="card-header">
-                <div class="icon-box icon-purple"><i class="fa-solid fa-rotate"></i></div>
-                <p class="card-title">Ongoing Compliance</p>
+            <div class="service-row-7">
+              <div class="row-bar-7" style="background:#7C3AED;"></div>
+              <div class="row-label-7">
+                <div class="row-icon-7" style="background:#F5F3FF;color:#7C3AED;"><i class="fa-solid fa-rotate"></i></div>
+                <p class="row-title-7">Ongoing Compliance</p>
               </div>
-              <div class="service-list">
-                <div class="list-item"><i class="fa-solid fa-check check-icon"></i><p class="item-text">ROC Annual Filings</p></div>
-                <div class="list-item"><i class="fa-solid fa-check check-icon"></i><p class="item-text">GST Monthly/Quarterly Filings</p></div>
-                <div class="list-item"><i class="fa-solid fa-check check-icon"></i><p class="item-text">TDS Return Filing</p></div>
-                <div class="list-item"><i class="fa-solid fa-check check-icon"></i><p class="item-text">Board Resolutions</p></div>
-                <div class="list-item"><i class="fa-solid fa-check check-icon"></i><p class="item-text">Share Allotments (PAS-3)</p></div>
-                <div class="list-item"><i class="fa-solid fa-check check-icon"></i><p class="item-text">Accounting &amp; Bookkeeping</p></div>
-                <div class="list-item"><i class="fa-solid fa-check check-icon"></i><p class="item-text">Payroll Processing</p></div>
-                <div class="list-item"><i class="fa-solid fa-check check-icon"></i><p class="item-text">DIR-3 KYC</p></div>
+              <div class="row-tags-7">
+                <span class="tag-7 tag-purple"><i class="fa-solid fa-check"></i>ROC Annual Filings</span>
+                <span class="tag-7 tag-purple"><i class="fa-solid fa-check"></i>GST Filings</span>
+                <span class="tag-7 tag-purple"><i class="fa-solid fa-check"></i>TDS Return</span>
+                <span class="tag-7 tag-purple"><i class="fa-solid fa-check"></i>Board Resolutions</span>
+                <span class="tag-7 tag-purple"><i class="fa-solid fa-check"></i>Share Allotments</span>
+                <span class="tag-7 tag-purple"><i class="fa-solid fa-check"></i>Bookkeeping</span>
+                <span class="tag-7 tag-purple"><i class="fa-solid fa-check"></i>Payroll Processing</span>
+                <span class="tag-7 tag-purple"><i class="fa-solid fa-check"></i>DIR-3 KYC</span>
               </div>
             </div>
+
             <!-- Advanced Support -->
-            <div class="service-card">
-              <div class="card-header">
-                <div class="icon-box icon-orange"><i class="fa-solid fa-shield-halved"></i></div>
-                <p class="card-title">Advanced Support</p>
+            <div class="service-row-7">
+              <div class="row-bar-7" style="background:#EA580C;"></div>
+              <div class="row-label-7">
+                <div class="row-icon-7" style="background:#FFF7ED;color:#EA580C;"><i class="fa-solid fa-shield-halved"></i></div>
+                <p class="row-title-7">Advanced Support</p>
               </div>
-              <div class="service-list">
-                <div class="list-item"><i class="fa-solid fa-check check-icon"></i><p class="item-text">Due Diligence Preparation</p></div>
-                <div class="list-item"><i class="fa-solid fa-check check-icon"></i><p class="item-text">Investor Compliance Checks</p></div>
-                <div class="list-item"><i class="fa-solid fa-check check-icon"></i><p class="item-text">Cap Table Structuring</p></div>
-                <div class="list-item"><i class="fa-solid fa-check check-icon"></i><p class="item-text">ESOP Documentation</p></div>
-                <div class="list-item"><i class="fa-solid fa-check check-icon"></i><p class="item-text">Founders' Agreement</p></div>
-                <div class="list-item"><i class="fa-solid fa-check check-icon"></i><p class="item-text">SHA / SSA Advisory</p></div>
+              <div class="row-tags-7">
+                <span class="tag-7 tag-orange"><i class="fa-solid fa-check"></i>Due Diligence</span>
+                <span class="tag-7 tag-orange"><i class="fa-solid fa-check"></i>Investor Checks</span>
+                <span class="tag-7 tag-orange"><i class="fa-solid fa-check"></i>Cap Table</span>
+                <span class="tag-7 tag-orange"><i class="fa-solid fa-check"></i>ESOP Documentation</span>
+                <span class="tag-7 tag-orange"><i class="fa-solid fa-check"></i>Founders' Agreement</span>
+                <span class="tag-7 tag-orange"><i class="fa-solid fa-check"></i>SHA / SSA Advisory</span>
               </div>
             </div>
+
           </div>
 
           <div class="slide-footer-7"><p>LaunchToday | End-to-End Solutions</p></div>
