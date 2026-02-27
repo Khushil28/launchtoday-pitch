@@ -1,0 +1,4177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LaunchToday - Pitch Deck</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    /* GLOBAL STYLES */
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Montserrat', sans-serif;
+      scroll-behavior: smooth;
+      /* Stage canvas (matches dark gradient reference) */
+      background-color: #141a22;
+      background-image:
+        radial-gradient(120% 90% at 50% -10%, #2a3648 0%, rgba(42, 54, 72, 0) 55%),
+        linear-gradient(180deg, #171f2a 0%, #1b2430 45%, #161d27 100%);
+      height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* SNAP SCROLL CONTAINER */
+    #deck {
+      overflow-y: scroll;
+      height: 100vh;
+      background-color: #141a22;
+      background-image:
+        radial-gradient(120% 90% at 50% -10%, #2a3648 0%, rgba(42, 54, 72, 0) 55%),
+        linear-gradient(180deg, #171f2a 0%, #1b2430 45%, #161d27 100%);
+      scroll-snap-type: y mandatory;
+      scroll-behavior: smooth;
+    }
+
+    /* SLIDE BASE */
+    .slide {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+    }
+
+    /* SLIDE CONTENT CONTAINER */
+    .slide-content {
+      width: 1280px;
+      height: 720px;
+      position: relative;
+      max-width: calc(100vw - 40px);
+      max-height: calc(100vh - 40px);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+    }
+
+    /* SLIDE NUMBERING */
+    .slide-number {
+      position: absolute;
+      top: 10px;
+      left: 12px;
+      background: rgba(30, 58, 95, 0.9);
+      color: white;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      z-index: 100;
+      backdrop-filter: blur(10px);
+    }
+
+    /* SLIDE 1 - TITLE SLIDE STYLES */
+    .slide-1 {
+      background-color: #1E3A5F;
+      color: white;
+    }
+
+    .slide-1 .svg-pattern {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      opacity: 0.3;
+    }
+
+    .slide-1 .content-container {
+      position: relative;
+      z-index: 10;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-left: 60px;
+      padding-right: 60px;
+    }
+
+    .slide-1 .logo-mark {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 80px;
+      height: 80px;
+      background-color: #00C896;
+      border-radius: 16px;
+      margin-bottom: 20px;
+      box-shadow: 0 10px 25px rgba(0, 200, 150, 0.3);
+    }
+
+    .slide-1 .title-text {
+      font-size: 84px;
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 20px;
+      letter-spacing: -2px;
+      text-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+
+    .slide-1 .highlight-green {
+      color: #00C896;
+    }
+
+    .slide-1 .subtitle-text {
+      font-family: 'Inter', sans-serif;
+      font-size: 32px;
+      font-weight: 400;
+      color: #E2E8F0;
+      max-width: 800px;
+      line-height: 1.4;
+      margin-bottom: 40px;
+      border-left: 4px solid #00C896;
+      padding-left: 24px;
+    }
+
+    .slide-1 .footer-tagline {
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      color: #94A3B8;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .slide-1 .footer-divider {
+      width: 40px;
+      height: 2px;
+      background-color: #00C896;
+    }
+
+    .slide-1 .tech-line {
+      position: absolute;
+      background-color: rgba(255, 255, 255, 0.1);
+      z-index: 1;
+    }
+
+    /* SLIDE 2 - PROBLEM STATEMENT STYLES */
+    .slide-2 {
+      background-color: #F8FAFC;
+      color: #1E3A5F;
+    }
+
+    .slide-2 .slide-container {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+
+    .slide-2 .sidebar-accent {
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 12px;
+      background-color: #1E3A5F;
+      z-index: 10;
+    }
+
+    .slide-2 .sidebar-pattern {
+      position: absolute;
+      left: 12px;
+      top: 0;
+      bottom: 0;
+      width: 40px;
+      background-image: radial-gradient(#1E3A5F 1px, transparent 1px);
+      background-size: 10px 10px;
+      opacity: 0.1;
+    }
+
+    .slide-2 .main-content {
+      flex: 1;
+      padding: 40px 60px 40px 80px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .slide-2 .header-section {
+      margin-bottom: 28px;
+    }
+
+    .slide-2 .super-heading {
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      color: #00C896;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .slide-2 .main-heading {
+      font-size: 48px;
+      font-weight: 800;
+      color: #1E3A5F;
+      line-height: 1.1;
+    }
+
+    .slide-2 .content-grid {
+      display: flex;
+      gap: 60px;
+      height: 100%;
+      align-items: center;
+    }
+
+    .slide-2 .text-column {
+      flex: 1;
+    }
+
+    .slide-2 .chart-column {
+      flex: 0.8;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .slide-2 .problem-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .slide-2 .problem-item {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 24px;
+      position: relative;
+      padding-left: 20px;
+    }
+
+    .slide-2 .problem-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .slide-2 .bullet-point {
+      min-width: 32px;
+      height: 32px;
+      background-color: #EF4444;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 14px;
+      margin-right: 16px;
+      margin-top: 2px;
+      box-shadow: 0 4px 6px rgba(239, 68, 68, 0.2);
+    }
+
+    .slide-2 .item-content h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: #1E3A5F;
+      margin: 0 0 6px 0;
+    }
+
+    .slide-2 .item-content p {
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      color: #64748B;
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    .slide-2 .quote-box {
+      margin-top: 24px;
+      padding: 20px 24px;
+      background-color: #EFF6FF;
+      border-left: 4px solid #00C896;
+      border-radius: 0 8px 8px 0;
+    }
+
+    .slide-2 .quote-text {
+      font-family: 'Inter', sans-serif;
+      font-size: 18px;
+      font-weight: 600;
+      color: #1E3A5F;
+      font-style: italic;
+      margin: 0;
+    }
+
+    .slide-2 .chart-container {
+      width: 400px;
+      height: 400px;
+      position: relative;
+    }
+
+    .slide-2 .stat-overlay {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+    }
+
+    .slide-2 .stat-number {
+      font-size: 80px;
+      font-weight: 800;
+      color: #EF4444;
+      line-height: 1;
+      margin: 0;
+    }
+
+    .slide-2 .stat-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 18px;
+      font-weight: 600;
+      color: #64748B;
+      margin: 5px 0 0 0;
+    }
+
+    .slide-2 .chart-caption {
+      margin-top: 20px;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      color: #94A3B8;
+      text-align: center;
+    }
+
+    .slide-2 .slide-footer {
+      position: absolute;
+      bottom: 16px;
+      right: 40px;
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      color: #94A3B8;
+      z-index: 20;
+    }
+
+    /* SLIDE 3 - BROKEN FLOW STYLES */
+    .slide-3 {
+      background-color: #F8FAFC;
+      color: #1E3A5F;
+    }
+
+    .slide-container-3 {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      padding: 40px 60px;
+    }
+
+    .slide-3 .header-section {
+      margin-bottom: 28px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .slide-3 .super-heading {
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      color: #EF4444;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .slide-3 .main-heading {
+      font-size: 48px;
+      font-weight: 800;
+      color: #1E3A5F;
+      line-height: 1.1;
+    }
+
+    .flow-container {
+      flex: 1;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 40px;
+    }
+
+    .flow-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 32px;
+      position: relative;
+    }
+
+    .snake-line {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .node {
+      width: 180px;
+      height: 140px;
+      background-color: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 15px;
+      position: relative;
+      border: 1px solid #E2E8F0;
+      z-index: 2;
+    }
+
+    .node-icon {
+      font-size: 32px;
+      margin-bottom: 12px;
+      color: #1E3A5F;
+    }
+
+    .node-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      color: #334155;
+      line-height: 1.2;
+    }
+
+    .node.start {
+      border-left: 4px solid #00C896;
+    }
+
+    .node.chaos {
+      border-style: dashed;
+      border-color: #94A3B8;
+    }
+
+    .node.danger {
+      background-color: #FEF2F2;
+      border: 1px solid #FECACA;
+      color: #991B1B;
+    }
+
+    .node.danger .node-icon {
+      color: #DC2626;
+    }
+
+    .node.danger .node-label {
+      color: #991B1B;
+    }
+
+    .arrow-right {
+      flex: 1;
+      height: 2px;
+      background-color: #CBD5E1;
+      margin: 0 10px;
+      position: relative;
+    }
+
+    .arrow-right::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: -4px;
+      width: 0;
+      height: 0;
+      border-left: 8px solid #CBD5E1;
+      border-top: 5px solid transparent;
+      border-bottom: 5px solid transparent;
+    }
+
+    .flow-row.bottom {
+      flex-direction: row-reverse;
+    }
+
+    .arrow-left {
+      flex: 1;
+      height: 2px;
+      background-color: #EF4444;
+      margin: 0 10px;
+      position: relative;
+    }
+
+    .arrow-left::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: -4px;
+      width: 0;
+      height: 0;
+      border-right: 8px solid #EF4444;
+      border-top: 5px solid transparent;
+      border-bottom: 5px solid transparent;
+    }
+
+    .broken-stamp {
+      position: absolute;
+      right: 50px;
+      bottom: 140px;
+      transform: rotate(-15deg);
+      border: 4px solid #EF4444;
+      color: #EF4444;
+      font-size: 32px;
+      font-weight: 800;
+      padding: 10px 20px;
+      text-transform: uppercase;
+      border-radius: 8px;
+      opacity: 0.2;
+      z-index: 0;
+    }
+
+    .problem-summary {
+      background-color: #1E3A5F;
+      border-radius: 16px;
+      padding: 25px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: white;
+      margin-top: 28px;
+    }
+
+    .problem-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: #EF4444;
+      margin-right: 40px;
+      white-space: nowrap;
+    }
+
+    .problem-items {
+      display: flex;
+      gap: 30px;
+      flex: 1;
+    }
+
+    .p-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .p-icon {
+      color: #EF4444;
+      font-size: 18px;
+    }
+
+    .p-text {
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      font-weight: 500;
+    }
+
+    @keyframes pulse-red {
+      0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
+      70% { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+    }
+
+    .node.firefighting {
+      animation: pulse-red 2s infinite;
+    }
+
+    /* SLIDE 5 - DIFFERENTIATORS STYLES */
+    .slide-5 {
+      background-color: #F8FAFC;
+      color: #1E3A5F;
+    }
+
+    .slide-container-5 {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      position: relative;
+    }
+
+    .sidebar-accent-5 {
+      width: 12px;
+      background-color: #1E3A5F;
+      height: 100%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 10;
+    }
+
+    .left-panel {
+      width: 350px;
+      background-color: #1E3A5F;
+      padding: 50px 40px;
+      display: flex;
+      flex-direction: column;
+      color: white;
+      position: relative;
+      z-index: 5;
+    }
+
+    .left-panel .svg-pattern {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0.1;
+      z-index: 0;
+    }
+
+    .left-panel .super-heading {
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: #00C896;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 20px;
+    }
+
+    .left-panel .main-heading {
+      font-size: 42px;
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 30px;
+    }
+
+    .description-text {
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      color: #E2E8F0;
+      margin-bottom: 40px;
+    }
+
+    .vs-badge {
+      display: inline-block;
+      background-color: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      padding: 15px 20px;
+      border-radius: 12px;
+    }
+
+    .vs-title {
+      font-weight: 700;
+      color: #EF4444;
+      margin-bottom: 5px;
+      font-size: 14px;
+      text-transform: uppercase;
+    }
+
+    .vs-text {
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      color: #CBD5E1;
+    }
+
+    .right-panel {
+      flex: 1;
+      padding: 50px 60px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      gap: 20px;
+      height: 100%;
+      max-height: 550px;
+    }
+
+    .feature-card {
+      background-color: white;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+      display: flex;
+      flex-direction: column;
+      border-top: 4px solid #E2E8F0;
+      transition: transform 0.2s, box-shadow 0.2s;
+      position: relative;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      border-top-color: #00C896;
+    }
+
+    .feature-card.highlight {
+      background-color: #F0FDFA;
+      border: 2px solid #00C896;
+      border-top: none;
+      box-shadow: 0 10px 20px rgba(0, 200, 150, 0.15);
+    }
+
+    .feature-card.highlight::before {
+      content: "CORE ADVANTAGE";
+      position: absolute;
+      top: -12px;
+      right: 20px;
+      background-color: #00C896;
+      color: #1E3A5F;
+      font-size: 10px;
+      font-weight: 800;
+      padding: 4px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+
+    .card-icon-wrapper {
+      width: 48px;
+      height: 48px;
+      background-color: #F1F5F9;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 15px;
+    }
+
+    .feature-card.highlight .card-icon-wrapper {
+      background-color: #CCFBF1;
+    }
+
+    .card-icon {
+      font-size: 20px;
+      color: #1E3A5F;
+    }
+
+    .feature-card.highlight .card-icon {
+      color: #0F766E;
+    }
+
+    .card-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: #1E3A5F;
+      margin-bottom: 8px;
+      line-height: 1.2;
+    }
+
+    .card-desc {
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      color: #64748B;
+      line-height: 1.4;
+    }
+
+    .slide-footer-5 {
+      position: absolute;
+      bottom: 16px;
+      right: 40px;
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      color: #94A3B8;
+      z-index: 20;
+    }
+
+    /* SLIDE 6 - ENTERPRISE DASHBOARD STYLES */
+    .slide-6 {
+      color: #0f172a;
+    }
+
+    .slide-6 .slide-container-6 {
+      width: 100%;
+      height: 100%;
+      box-sizing: border-box;
+      position: relative;
+      padding: 34px 42px 44px;
+      font-family: 'Inter', sans-serif;
+      background: #ffffff;
+      overflow: visible;
+    }
+
+    .slide-6 .ed-bg-glow {
+      position: absolute;
+      width: 270px;
+      height: 270px;
+      right: 72px;
+      top: 90px;
+      border-radius: 999px;
+      background: #ccfbf1;
+      filter: blur(58px);
+      opacity: 0.6;
+      z-index: 0;
+    }
+
+    .slide-6 .ed-header { margin-bottom: 18px; position: relative; z-index: 2; }
+    .slide-6 .ed-header-row { display: flex; align-items: center; gap: 12px; margin-bottom: 4px; }
+    .slide-6 .ed-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      background-color: #0d9488;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+    }
+    .slide-6 .ed-title {
+      margin: 0;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 32px;
+      font-weight: 800;
+      color: #111827;
+      letter-spacing: -0.4px;
+      line-height: 1.1;
+    }
+    .slide-6 .ed-subtitle {
+      margin: 0 0 0 46px;
+      font-size: 19px;
+      color: #6b7280;
+      line-height: 1.3;
+      font-weight: 500;
+    }
+
+    .slide-6 .ed-main {
+      display: grid;
+      grid-template-columns: 34% 66%;
+      gap: 28px;
+      height: 520px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .slide-6 .ed-feature-list { display: flex; flex-direction: column; gap: 18px; }
+    .slide-6 .ed-feature {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .slide-6 .ed-feature-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 999px;
+      background-color: #ccfbf1;
+      color: #0f766e;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+      font-size: 14px;
+    }
+    .slide-6 .ed-feature-title {
+      margin: 0;
+      font-size: 21px;
+      font-weight: 700;
+      color: #1f2937;
+      line-height: 1.25;
+    }
+    .slide-6 .ed-feature-text {
+      margin: 6px 0 0;
+      font-size: 13px;
+      color: #6b7280;
+      line-height: 1.45;
+    }
+
+    .slide-6 .ed-preview-label {
+      margin-top: 22px;
+      margin-bottom: 8px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #9ca3af;
+    }
+
+    .slide-6 .ed-thumb-row { display: flex; gap: 10px; }
+    .slide-6 .ed-thumb {
+      flex: 1;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #ffffff;
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08);
+      transition: transform 0.32s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease, border-color 0.2s ease, opacity 0.18s ease;
+      will-change: transform;
+      position: relative;
+      cursor: pointer;
+    }
+    .slide-6 .ed-thumb:hover {
+      transform: translateY(-5px) scale(1.22);
+      border-color: #0d9488;
+      box-shadow: 0 18px 36px rgba(15, 23, 42, 0.24), 0 0 0 2px rgba(13,148,136,0.18);
+      z-index: 20;
+    }
+    .slide-6 .ed-thumb-row.secondary { margin-top: 10px; }
+    .slide-6 .ed-thumb img {
+      width: 100%;
+      height: 82px;
+      object-fit: cover;
+      display: block;
+    }
+    .slide-6 .ed-thumb-caption {
+      border-top: 1px solid #f1f5f9;
+      padding: 5px 8px;
+      font-size: 10px;
+      color: #374151;
+      font-weight: 600;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+
+    .slide-6 .ed-hero-wrap {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-left: 6px;
+    }
+    .slide-6 .ed-hero {
+      width: 100%;
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      background: #ffffff;
+      transform: rotate(1deg);
+      transition: transform 0.3s ease, box-shadow 0.25s ease, opacity 0.22s ease;
+    }
+    .slide-6 .ed-hero:hover {
+      transform: rotate(0deg) scale(1.015);
+      box-shadow: 0 24px 30px -8px rgba(0, 0, 0, 0.18), 0 12px 14px -8px rgba(0, 0, 0, 0.08);
+    }
+    .slide-6 .ed-browser-bar {
+      background: #f8fafc;
+      border-bottom: 1px solid #e5e7eb;
+      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .slide-6 .ed-dots { display: flex; gap: 5px; }
+    .slide-6 .ed-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+    }
+    .slide-6 .ed-dot.red { background: #f87171; }
+    .slide-6 .ed-dot.yellow { background: #facc15; }
+    .slide-6 .ed-dot.green { background: #4ade80; }
+    .slide-6 .ed-url {
+      margin-left: 10px;
+      height: 22px;
+      border: 1px solid #e5e7eb;
+      border-radius: 6px;
+      padding: 0 10px;
+      display: flex;
+      align-items: center;
+      font-size: 10px;
+      color: #9ca3af;
+      background: #ffffff;
+      min-width: 268px;
+      gap: 6px;
+    }
+    .slide-6 .ed-hero img { width: 100%; height: auto; display: block; }
+
+    .slide-6 .ed-status-badge {
+      position: absolute;
+      right: 12px;
+      bottom: 16px;
+      background: #ffffff;
+      border: 1px solid #f1f5f9;
+      border-radius: 10px;
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.12);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      z-index: 3;
+    }
+    .slide-6 .ed-status-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      background: #dcfce7;
+      color: #16a34a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+    }
+    .slide-6 .ed-status-top {
+      margin: 0;
+      font-size: 11px;
+      color: #6b7280;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+    .slide-6 .ed-status-main {
+      margin: 1px 0 0;
+      font-size: 13px;
+      color: #111827;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    /* ── Slide 6 thumbnail interaction ── */
+    .slide-6 .ed-thumb-overlay {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      bottom: 24px;
+      background: rgba(13, 148, 136, 0.13);
+      opacity: 0;
+      transition: opacity 0.22s ease;
+      pointer-events: none;
+      z-index: 5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .slide-6 .ed-thumb:hover .ed-thumb-overlay { opacity: 1; }
+    .slide-6 .ed-thumb.ed-thumb-active .ed-thumb-overlay { opacity: 0 !important; }
+    .slide-6 .ed-thumb.ed-thumb-active {
+      border-color: #0d9488;
+      box-shadow: 0 0 0 2px rgba(13,148,136,0.3), 0 4px 14px rgba(0,0,0,0.1) !important;
+      cursor: default;
+    }
+    .slide-6 .ed-thumb.ed-thumb-active:hover { transform: none !important; }
+    .slide-6 .ed-expand-icon {
+      background: rgba(255,255,255,0.96);
+      border-radius: 20px;
+      padding: 4px 10px 4px 8px;
+      font-size: 9px;
+      color: #0d9488;
+      font-weight: 700;
+      font-family: 'Inter', sans-serif;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+      letter-spacing: 0.2px;
+      white-space: nowrap;
+    }
+    .slide-6 .ed-hero.ed6-swap-out {
+      opacity: 0 !important;
+      transform: scale(0.96) !important;
+    }
+
+    .slide-footer-6 {
+      position: absolute;
+      bottom: 16px;
+      right: 40px;
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      color: #94A3B8;
+      z-index: 20;
+    }
+
+    /* SLIDE 4 - LAUNCHTODAY SOLUTION STYLES */
+    .slide-4 {
+      background-color: #F8FAFC;
+      color: #1E3A5F;
+    }
+
+    .slide-container-4 {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      padding: 40px 60px;
+      box-sizing: border-box;
+    }
+
+    .sidebar-accent-4 {
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 12px;
+      background-color: #00C896;
+      z-index: 10;
+    }
+
+    .slide-4 .header-section {
+      margin-bottom: 20px;
+      text-align: center;
+      z-index: 20;
+    }
+
+    .slide-4 .super-heading {
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      color: #00C896;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 10px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .slide-4 .main-heading {
+      font-size: 42px;
+      font-weight: 800;
+      color: #1E3A5F;
+      line-height: 1.1;
+    }
+
+    .sub-heading {
+      font-family: 'Inter', sans-serif;
+      font-size: 20px;
+      color: #64748B;
+      margin-top: 10px;
+      font-weight: 500;
+    }
+
+    .hub-container {
+      flex: 1;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 10px;
+    }
+
+    .lines-svg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+
+    .center-hub {
+      width: 200px;
+      height: 200px;
+      background-color: #1E3A5F;
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      box-shadow: 0 10px 30px rgba(30, 58, 95, 0.4);
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border: 8px solid white;
+    }
+
+    .hub-icon {
+      font-size: 48px;
+      color: #00C896;
+      margin-bottom: 10px;
+    }
+
+    .hub-label {
+      color: white;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 18px;
+      text-align: center;
+      line-height: 1.2;
+    }
+
+    .spoke-node {
+      position: absolute;
+      width: 240px;
+      height: 60px;
+      background-color: white;
+      border-radius: 30px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+      z-index: 5;
+      border-left: 5px solid #00C896;
+    }
+
+    .spoke-icon-circle {
+      width: 40px;
+      height: 40px;
+      background-color: #EFF6FF;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 12px;
+      flex-shrink: 0;
+    }
+
+    .spoke-icon {
+      color: #1E3A5F;
+      font-size: 18px;
+    }
+
+    .spoke-text {
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: #334155;
+      line-height: 1.2;
+    }
+
+    .pos-1 { top: 10%; left: 50%; transform: translateX(-50%); }
+    .pos-2 { top: 18%; left: 73%; }
+    .pos-3 { top: 38%; left: 82%; }
+    .pos-4 { top: 62%; left: 78%; }
+    .pos-5 { top: 80%; left: 60%; }
+    .pos-6 { top: 80%; left: 22%; }
+    .pos-7 { top: 62%; left: 5%; }
+    .pos-8 { top: 38%; left: 0%; }
+    .pos-9 { top: 18%; left: 8%; }
+
+    .orbit-circle {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      border: 2px dashed #CBD5E1;
+      z-index: 0;
+    }
+
+    .orbit-1 { 
+      width: 500px; 
+      height: 500px; 
+      opacity: 0.5; 
+    }
+    
+    .orbit-2 { 
+      width: 350px; 
+      height: 350px; 
+      opacity: 0.3; 
+      border-style: solid; 
+      border-color: #E2E8F0; 
+    }
+
+    .slide-4 .slide-footer {
+      position: absolute;
+      bottom: 16px;
+      right: 40px;
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      color: #94A3B8;
+      z-index: 20;
+    }
+
+    .tech-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: radial-gradient(#CBD5E1 1px, transparent 1px);
+      background-size: 20px 20px;
+      opacity: 0.3;
+      z-index: 0;
+    }
+
+    /* SLIDE 7 - FULL STACK SERVICES */
+    .slide-7 { background-color: #F8FAFC; color: #1E3A5F; }
+
+    .slide-container-7 {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      padding: 40px 60px 50px 60px;
+      box-sizing: border-box;
+    }
+
+    .sidebar-accent-7 {
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 12px;
+      background-color: #00C896;
+      z-index: 10;
+    }
+
+    .slide-7 .header-section {
+      margin-bottom: 12px;
+      position: relative;
+      z-index: 20;
+    }
+
+    .slide-7 .super-heading {
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: #00C896;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .slide-7 .main-heading {
+      font-size: 34px;
+      font-weight: 800;
+      color: #1E3A5F;
+      line-height: 1.1;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 12px;
+      flex: 1;
+      min-height: 0;
+    }
+
+    .service-card {
+      background-color: white;
+      border-radius: 12px;
+      padding: 14px 18px;
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03);
+      display: flex;
+      flex-direction: column;
+      border: 1px solid #E2E8F0;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    .service-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+      border-color: #00C896;
+    }
+
+    .service-card .card-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 10px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #F1F5F9;
+    }
+
+    .icon-box {
+      width: 38px;
+      height: 38px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .icon-box.icon-blue  { background-color: #EFF6FF; color: #1E3A5F; }
+    .icon-box.icon-green { background-color: #F0FDF4; color: #059669; }
+    .icon-box.icon-purple{ background-color: #F5F3FF; color: #7C3AED; }
+    .icon-box.icon-orange{ background-color: #FFF7ED; color: #EA580C; }
+
+    .service-card .card-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #1E3A5F;
+      margin: 0;
+    }
+
+    .service-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px 10px;
+    }
+
+    .service-list .list-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .check-icon {
+      color: #00C896;
+      font-size: 13px;
+      margin-top: 2px;
+      flex-shrink: 0;
+    }
+
+    .item-text {
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      color: #475569;
+      line-height: 1.3;
+      font-weight: 500;
+      margin: 0;
+    }
+
+    .bg-pattern-7 {
+      position: absolute;
+      right: 0; bottom: 0;
+      width: 400px; height: 400px;
+      opacity: 0.03;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .slide-footer-7 {
+      position: absolute;
+      bottom: 16px;
+      right: 40px;
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      color: #94A3B8;
+      z-index: 20;
+    }
+
+    /* SLIDE 8 - COMPLIANCE = ECOSYSTEM CREDIBILITY */
+    .slide-8 { background-color: #F8FAFC; color: #1E3A5F; }
+
+    .slide-container-8 {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      padding: 40px 60px;
+      box-sizing: border-box;
+    }
+
+    .sidebar-accent-8 {
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 12px;
+      background-color: #1E3A5F;
+      z-index: 10;
+    }
+
+    .bg-pattern-8 {
+      position: absolute;
+      top: 0; right: 0;
+      width: 600px; height: 600px;
+      background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23CBD5E1' fill-opacity='0.4' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='3'/%3E%3C/g%3E%3C/svg%3E");
+      opacity: 0.5;
+      z-index: 0;
+    }
+
+    .slide-8 .header-section {
+      margin-bottom: 30px;
+      position: relative;
+      z-index: 20;
+      text-align: center;
+    }
+
+    .slide-8 .super-heading {
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      color: #EF4444;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 10px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background-color: #FEF2F2;
+      padding: 6px 16px;
+      border-radius: 20px;
+    }
+
+    .slide-8 .main-heading {
+      font-size: 42px;
+      font-weight: 800;
+      color: #1E3A5F;
+      line-height: 1.1;
+      margin-bottom: 10px;
+    }
+
+    .slide-8 .sub-heading {
+      font-family: 'Inter', sans-serif;
+      font-size: 20px;
+      color: #64748B;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .compare-grid {
+      display: flex;
+      gap: 40px;
+      flex: 1;
+      position: relative;
+      z-index: 5;
+      padding-bottom: 20px;
+    }
+
+    .compare-card {
+      flex: 1;
+      border-radius: 20px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
+      transition: transform 0.3s ease;
+    }
+
+    .compare-card:hover { transform: translateY(-5px); }
+    .card-bad  { background-color: #FEF2F2; border: 2px solid #FECACA; }
+    .card-good { background-color: #F0FDF4; border: 2px solid #BBF7D0; }
+
+    .card-header-row {
+      display: flex;
+      align-items: center;
+      margin-bottom: 25px;
+      border-bottom: 2px solid rgba(0,0,0,0.05);
+      padding-bottom: 15px;
+    }
+
+    .card-icon-lg {
+      width: 60px; height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      margin-right: 15px;
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+    }
+
+    .icon-bad  { background-color: #EF4444; color: white; }
+    .icon-good { background-color: #00C896; color: white; }
+
+    .card-title-text { font-size: 24px; font-weight: 700; line-height: 1.2; }
+    .text-bad  { color: #991B1B; }
+    .text-good { color: #065F46; }
+
+    .comparison-list { display: flex; flex-direction: column; gap: 20px; }
+
+    .compare-item {
+      display: flex;
+      align-items: flex-start;
+      background-color: white;
+      padding: 15px;
+      border-radius: 12px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    }
+
+    .compare-item .item-icon {
+      font-size: 18px;
+      margin-top: 2px;
+      margin-right: 15px;
+      flex-shrink: 0;
+    }
+
+    .bad-item  .item-icon { color: #EF4444; }
+    .good-item .item-icon { color: #00C896; }
+
+    .compare-item .item-content { flex: 1; }
+
+    .compare-item .item-title {
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 16px;
+      margin-bottom: 4px;
+      color: #1E3A5F;
+    }
+
+    .compare-item .item-desc {
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      color: #64748B;
+      line-height: 1.4;
+    }
+
+    .vs-center {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #1E3A5F;
+      color: white;
+      width: 50px; height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 14px;
+      border: 4px solid white;
+      z-index: 20;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    .investor-tag {
+      position: absolute;
+      top: -15px; right: 20px;
+      background-color: #F59E0B;
+      color: white;
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 6px 12px;
+      border-radius: 6px;
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+      transform: rotate(2deg);
+    }
+
+    .slide-footer-8 {
+      position: absolute;
+      bottom: 16px;
+      right: 40px;
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      color: #94A3B8;
+      z-index: 20;
+    }
+
+    /* SLIDE 9 - REVENUE MODEL */
+    .slide-9 { background-color: #F8FAFC; color: #1E3A5F; }
+
+    .slide-container-9 {
+      width: 100%; height: 100%;
+      display: flex; flex-direction: column;
+      position: relative;
+      padding: 40px 60px 50px; box-sizing: border-box;
+    }
+
+    .sidebar-accent-9 {
+      position: absolute; left: 0; top: 0; bottom: 0;
+      width: 12px; background-color: #00C896; z-index: 10;
+    }
+
+    .bg-pattern-9 {
+      position: absolute; top: 0; right: 0; width: 100%; height: 100%;
+      background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23E2E8F0' fill-opacity='0.4' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='3'/%3E%3C/g%3E%3C/svg%3E");
+      opacity: 0.5; z-index: 0;
+    }
+
+    .slide-9 .header-section { margin-bottom: 30px; position: relative; z-index: 20; }
+
+    .slide-9 .super-heading {
+      font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600;
+      color: #00C896; text-transform: uppercase; letter-spacing: 2px;
+      margin-bottom: 10px; display: flex; align-items: center; gap: 10px;
+    }
+
+    .slide-9 .main-heading { font-size: 42px; font-weight: 800; color: #1E3A5F; line-height: 1.1; }
+
+    .content-area-9 {
+      flex: 1; display: flex; flex-direction: column;
+      justify-content: space-between; z-index: 10; min-height: 0;
+    }
+
+    .cards-container-9 {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 24px; margin-bottom: 24px;
+    }
+
+    .option-card {
+      background-color: white; border-radius: 16px; padding: 24px;
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03);
+      display: flex; flex-direction: column; align-items: center;
+      text-align: center; border: 1px solid #E2E8F0;
+      transition: all 0.3s ease; position: relative; overflow: hidden;
+    }
+
+    .option-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 30px -5px rgba(0,0,0,0.1);
+      border-color: #00C896;
+    }
+
+    .card-number {
+      position: absolute; top: -15px; right: -10px;
+      font-size: 80px; font-weight: 800;
+      color: #F1F5F9; z-index: 0; line-height: 1;
+    }
+
+    .icon-circle {
+      width: 64px; height: 64px; border-radius: 50%;
+      background-color: #EFF6FF;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 20px; position: relative; z-index: 1;
+      box-shadow: 0 4px 10px rgba(30,58,95,0.1);
+    }
+
+    .option-card:hover .icon-circle { background-color: #ECFDF5; }
+
+    .option-card .card-icon { font-size: 28px; color: #1E3A5F; transition: color 0.3s; }
+    .option-card:hover .card-icon { color: #059669; }
+
+    .option-card .card-title {
+      font-family: 'Montserrat', sans-serif; font-size: 18px; font-weight: 700;
+      color: #1E3A5F; margin-bottom: 12px; position: relative; z-index: 1; line-height: 1.3;
+    }
+
+    .option-card .card-desc {
+      font-family: 'Inter', sans-serif; font-size: 13px;
+      color: #64748B; line-height: 1.5; position: relative; z-index: 1;
+    }
+
+    .bottom-hero {
+      background-color: #1E3A5F; border-radius: 20px;
+      padding: 28px 40px;
+      display: flex; align-items: center; justify-content: space-between;
+      color: white; position: relative; overflow: hidden;
+      box-shadow: 0 10px 25px rgba(30,58,95,0.2);
+    }
+
+    .hero-pattern {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.1;
+      background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 40L40 0H20L0 20M40 40V20L20 40' stroke='%2300C896' stroke-width='2' fill='none'/%3E%3C/svg%3E");
+    }
+
+    .hero-text-content { position: relative; z-index: 2; }
+
+    .hero-tagline {
+      font-size: 32px; font-weight: 800; margin-bottom: 5px;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .highlight-green { color: #00C896; }
+
+    .hero-sub {
+      font-family: 'Inter', sans-serif; font-size: 16px;
+      color: #CBD5E1; font-weight: 500;
+    }
+
+    .hero-visual {
+      display: flex; align-items: center; gap: 20px;
+      position: relative; z-index: 2;
+    }
+
+    .flow-arrow {
+      color: #00C896; font-size: 24px;
+      animation: arrowPulse 2s infinite;
+    }
+
+    @keyframes arrowPulse {
+      0%   { transform: translateX(0); opacity: 0.6; }
+      50%  { transform: translateX(5px); opacity: 1; }
+      100% { transform: translateX(0); opacity: 0.6; }
+    }
+
+    .stat-badge {
+      background-color: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      padding: 10px 20px; border-radius: 10px; text-align: center;
+    }
+
+    .stat-badge .stat-val { font-weight: 800; font-size: 20px; color: #00C896; }
+    .stat-badge .stat-label { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
+
+    .slide-footer-9 {
+      position: absolute; bottom: 16px; right: 40px;
+      font-family: 'Inter', sans-serif; font-size: 12px; color: #94A3B8; z-index: 20;
+    }
+
+    /* SLIDE 10 - WHY NOW */
+    .slide-10 { background-color: #F8FAFC; color: #1E3A5F; }
+
+    .slide-container-10 {
+      width: 100%; height: 100%;
+      display: flex; flex-direction: column;
+      position: relative;
+      padding: 40px 60px 50px; box-sizing: border-box;
+    }
+
+    .sidebar-accent-10 {
+      position: absolute; left: 0; top: 0; bottom: 0;
+      width: 12px; background-color: #EF4444; z-index: 10;
+    }
+
+    .bg-pattern-10 {
+      position: absolute; top: 0; right: 0; width: 100%; height: 100%;
+      background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23CBD5E1' fill-opacity='0.3' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='3'/%3E%3C/g%3E%3C/svg%3E");
+      opacity: 0.5; z-index: 0;
+    }
+
+    .slide-10 .header-section { margin-bottom: 30px; position: relative; z-index: 20; }
+
+    .slide-10 .super-heading {
+      font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600;
+      color: #EF4444; text-transform: uppercase; letter-spacing: 2px;
+      margin-bottom: 10px; display: flex; align-items: center; gap: 10px;
+    }
+
+    .slide-10 .super-heading i { animation: blinkRed 2s infinite; }
+    @keyframes blinkRed { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+    .slide-10 .main-heading { font-size: 42px; font-weight: 800; color: #1E3A5F; line-height: 1.1; }
+
+    .grid-container-10 {
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      gap: 25px; flex: 1; margin-bottom: 20px; z-index: 10; min-height: 0;
+    }
+
+    .driver-card {
+      background-color: white; border-radius: 12px; padding: 24px;
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03);
+      display: flex; gap: 20px;
+      border-left: 5px solid transparent;
+      transition: all 0.3s ease;
+    }
+
+    .driver-card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
+
+    .card-mca  { border-left-color: #EF4444; }
+    .card-gst  { border-left-color: #F59E0B; }
+    .card-fund { border-left-color: #3B82F6; }
+    .card-dpdp { border-left-color: #8B5CF6; }
+
+    .icon-wrapper {
+      width: 60px; height: 60px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 28px; flex-shrink: 0;
+    }
+
+    .icon-mca  { background-color: #FEF2F2; color: #EF4444; }
+    .icon-gst  { background-color: #FFFBEB; color: #F59E0B; }
+    .icon-fund { background-color: #EFF6FF; color: #3B82F6; }
+    .icon-dpdp { background-color: #F5F3FF; color: #8B5CF6; }
+
+    .driver-card .card-content { display: flex; flex-direction: column; }
+
+    .driver-card .card-title {
+      font-family: 'Montserrat', sans-serif; font-size: 18px; font-weight: 700;
+      color: #1E3A5F; margin-bottom: 8px;
+    }
+
+    .driver-card .card-text {
+      font-family: 'Inter', sans-serif; font-size: 14px;
+      color: #475569; line-height: 1.5;
+    }
+
+    .urgent-banner {
+      background-color: #1E3A5F;
+      border-radius: 12px; padding: 20px 30px;
+      display: flex; align-items: center; justify-content: space-between;
+      color: white; position: relative; overflow: hidden;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+      z-index: 10;
+    }
+
+    .banner-icon { font-size: 24px; color: #EF4444; margin-right: 15px; }
+
+    .banner-text {
+      font-family: 'Montserrat', sans-serif; font-size: 20px;
+      font-weight: 700; flex: 1;
+    }
+
+    .banner-sub {
+      font-family: 'Inter', sans-serif; font-size: 14px;
+      color: #CBD5E1; font-weight: 400; margin-top: 4px;
+    }
+
+    .warning-badge {
+      background-color: #EF4444; color: white;
+      font-weight: 700; padding: 8px 16px; border-radius: 6px;
+      font-size: 12px; text-transform: uppercase; letter-spacing: 1px;
+      display: flex; align-items: center; gap: 8px;
+      white-space: nowrap;
+    }
+
+    .slide-footer-10 {
+      position: absolute; bottom: 16px; right: 40px;
+      font-family: 'Inter', sans-serif; font-size: 12px; color: #94A3B8; z-index: 20;
+    }
+
+    /* ===================== SLIDE 11 STYLES ===================== */
+    .slide-11 .slide-container-11 {
+      width: 100%; height: 100%; display: flex; flex-direction: column;
+      position: relative; padding: 40px 60px; box-sizing: border-box;
+      background-color: #F8FAFC; color: #1E3A5F;
+    }
+    .slide-11 .sidebar-accent-11 {
+      position: absolute; left: 0; top: 0; bottom: 0;
+      width: 12px; background-color: #1E3A5F; z-index: 10;
+    }
+    .slide-11 .bg-pattern-11 {
+      position: absolute; top: 0; right: 0; width: 100%; height: 100%;
+      background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%231E3A5F' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      z-index: 0;
+    }
+    .slide-11 .header-section-11 { margin-bottom: 24px; position: relative; z-index: 20; }
+    .slide-11 .super-heading-11 {
+      font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600;
+      color: #00C896; text-transform: uppercase; letter-spacing: 2px;
+      margin-bottom: 10px; display: flex; align-items: center; gap: 10px;
+    }
+    .slide-11 .main-heading-11 { font-size: 38px; font-weight: 800; color: #1E3A5F; line-height: 1.1; }
+    .slide-11 .timeline-section-11 {
+      flex: 1; display: flex; flex-direction: column; justify-content: center;
+      position: relative; z-index: 10; margin-bottom: 16px;
+    }
+    .slide-11 .timeline-track-11 {
+      position: relative; display: flex; justify-content: space-between;
+      align-items: flex-start; margin-top: 0; padding: 0 20px;
+    }
+    .slide-11 .track-line-11 {
+      position: absolute; top: 40px; left: 60px; right: 60px;
+      height: 4px; background-color: #E2E8F0; z-index: 0; border-radius: 2px;
+    }
+    .slide-11 .track-fill-11 {
+      position: absolute; top: 0; left: 0; height: 100%; width: 100%;
+      background-color: #00C896; opacity: 0.2; border-radius: 2px;
+    }
+    .slide-11 .step-item-11 {
+      display: flex; flex-direction: column; align-items: center;
+      position: relative; z-index: 1; width: 180px; text-align: center;
+    }
+    .slide-11 .step-circle-11 {
+      width: 80px; height: 80px; background-color: white; border: 3px solid #E2E8F0;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: 28px; color: #64748B; margin-bottom: 16px;
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); position: relative;
+    }
+    .slide-11 .step-active-11 .step-circle-11 {
+      border-color: #00C896; color: #00C896; background-color: #F0FDF4;
+      transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgba(0,200,150,0.2);
+    }
+    .slide-11 .step-number-11 {
+      position: absolute; top: -5px; right: -5px; width: 28px; height: 28px;
+      background-color: #1E3A5F; color: white; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 700; border: 2px solid white;
+    }
+    .slide-11 .step-title-11 { font-size: 15px; font-weight: 700; color: #1E3A5F; margin-bottom: 6px; line-height: 1.2; }
+    .slide-11 .step-desc-11 { font-family: 'Inter', sans-serif; font-size: 12px; color: #64748B; line-height: 1.4; }
+    .slide-11 .deliverables-container-11 {
+      background-color: white; border-radius: 16px; padding: 20px 36px;
+      display: flex; align-items: center; justify-content: space-between;
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
+      border: 1px solid #E2E8F0; position: relative; overflow: hidden; z-index: 10;
+    }
+    .slide-11 .deliverables-label-11 {
+      display: flex; flex-direction: column; gap: 4px;
+      border-right: 2px solid #F1F5F9; padding-right: 36px; margin-right: 20px; min-width: 180px;
+    }
+    .slide-11 .del-heading-11 { font-size: 18px; font-weight: 800; color: #1E3A5F; }
+    .slide-11 .del-sub-11 { font-size: 12px; color: #64748B; font-family: 'Inter', sans-serif; }
+    .slide-11 .del-cards-11 { display: flex; gap: 16px; flex: 1; }
+    .slide-11 .del-card-11 {
+      flex: 1; background-color: #F8FAFC; border-radius: 10px;
+      padding: 14px; display: flex; align-items: center; gap: 14px;
+      border-left: 4px solid #00C896;
+    }
+    .slide-11 .del-icon-11 {
+      width: 38px; height: 38px; background-color: white; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      color: #00C896; font-size: 17px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); flex-shrink: 0;
+    }
+    .slide-11 .del-text-11 { font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600; color: #334155; line-height: 1.3; }
+    .slide-11 .slide-footer-11 {
+      position: absolute; bottom: 16px; left: 60px; right: 40px;
+      display: flex; justify-content: space-between; align-items: center;
+      font-family: 'Inter', sans-serif; font-size: 12px; color: #94A3B8; z-index: 20;
+    }
+
+    /* ===================== SLIDE 12 STYLES ===================== */
+    .slide-12 .slide-container-12 {
+      width: 100%; height: 100%; display: flex; flex-direction: column;
+      position: relative; padding: 40px 60px; box-sizing: border-box;
+      background-color: #F8FAFC; color: #1E3A5F;
+    }
+    .slide-12 .sidebar-accent-12 {
+      position: absolute; left: 0; top: 0; bottom: 0;
+      width: 12px; background-color: #1E3A5F; z-index: 10;
+    }
+    .slide-12 .bg-pattern-12 {
+      position: absolute; top: 0; right: 0; width: 100%; height: 100%;
+      background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%231E3A5F' fill-opacity='0.03' fill-rule='evenodd'/%3E%3C/svg%3E");
+      z-index: 0;
+    }
+    .slide-12 .header-section-12 {
+      margin-bottom: 36px; position: relative; z-index: 20;
+      display: flex; justify-content: space-between; align-items: flex-end;
+    }
+    .slide-12 .left-header-12 { flex: 1; }
+    .slide-12 .super-heading-12 {
+      font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600;
+      color: #00C896; text-transform: uppercase; letter-spacing: 2px;
+      margin-bottom: 10px; display: flex; align-items: center; gap: 10px;
+    }
+    .slide-12 .main-heading-12 { font-size: 42px; font-weight: 800; color: #1E3A5F; line-height: 1.1; }
+    .slide-12 .founder-badge-12 {
+      background-color: white; border: 2px solid #E2E8F0; padding: 10px 20px;
+      border-radius: 8px; display: flex; flex-direction: column; align-items: flex-end;
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+    }
+    .slide-12 .founder-label-12 { font-size: 10px; color: #64748B; text-transform: uppercase; letter-spacing: 1px; font-family: 'Inter', sans-serif; }
+    .slide-12 .founder-name-12 { font-size: 20px; font-weight: 800; color: #1E3A5F; }
+    .slide-12 .badges-container-12 {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px;
+      flex: 1; margin-bottom: 32px; z-index: 10; position: relative;
+    }
+    .slide-12 .badge-card-12 {
+      background-color: white; border-radius: 16px; padding: 32px 22px 28px;
+      display: flex; flex-direction: column; align-items: center; text-align: center;
+      justify-content: flex-start;
+      position: relative; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05);
+      border: 1px solid #E2E8F0;
+    }
+    .slide-12 .card-top-accent-12 {
+      position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+      width: 40%; height: 4px; background-color: #1E3A5F;
+      border-bottom-left-radius: 4px; border-bottom-right-radius: 4px;
+    }
+    .slide-12 .badge-card-12:nth-child(2) .card-top-accent-12 { background-color: #00C896; }
+    .slide-12 .badge-card-12:nth-child(3) .card-top-accent-12 { background-color: #1E3A5F; }
+    .slide-12 .badge-card-12:nth-child(4) .card-top-accent-12 { background-color: #00C896; }
+    .slide-12 .badge-header-12 {
+      display: flex; flex-direction: column; align-items: center;
+      gap: 10px; margin-bottom: 24px;
+    }
+    .slide-12 .icon-shield-12 {
+      width: 68px; height: 68px; background-color: #F8FAFC; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 28px; color: #1E3A5F;
+      border: 2px solid #E2E8F0; position: relative; flex-shrink: 0;
+    }
+    .slide-12 .check-badge-12 {
+      position: absolute; bottom: -5px; right: -5px; width: 24px; height: 24px;
+      background-color: #00C896; color: white; border-radius: 50%; font-size: 11px;
+      display: flex; align-items: center; justify-content: center; border: 2px solid white;
+    }
+    .slide-12 .badge-title-12 { font-size: 18px; font-weight: 700; color: #1E3A5F; margin: 0; line-height: 1.25; }
+    .slide-12 .badge-desc-12 { font-family: 'Inter', sans-serif; font-size: 13px; color: #64748B; line-height: 1.55; text-align: center; margin: 0; }
+    .slide-12 .bottom-tagline-box-12 {
+      background-color: #1E3A5F; border-radius: 12px; padding: 22px 40px;
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+      box-shadow: 0 10px 20px rgba(30,58,95,0.2); text-align: center;
+    }
+    .slide-12 .tagline-text-12 {
+      position: relative; z-index: 2; color: white;
+      font-family: 'Montserrat', sans-serif; font-size: 19px; font-weight: 600; letter-spacing: 0.5px;
+    }
+    .slide-12 .tagline-highlight-12 { color: #00C896; font-weight: 800; }
+    .slide-12 .tagline-underline-12 { color: #CBD5E1; text-decoration: underline; text-decoration-color: #64748B; }
+    .slide-12 .quote-icon-12 {
+      font-size: 40px; color: rgba(255,255,255,0.1);
+      position: absolute; top: 10px; left: 20px;
+    }
+    .slide-12 .slide-footer-12 {
+      position: absolute; bottom: 16px; right: 40px;
+      font-family: 'Inter', sans-serif; font-size: 12px; color: #94A3B8; z-index: 20;
+    }
+
+    /* ===================== SLIDE 13 STYLES ===================== */
+    .slide-13 .slide-container-13 {
+      width: 100%; height: 100%; display: flex; flex-direction: column;
+      position: relative; padding: 40px 60px; box-sizing: border-box;
+      background-color: #1E3A5F; color: white;
+    }
+    .slide-13 .bg-pattern-13 {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      z-index: 0;
+    }
+    .slide-13 .glow-effect-13 {
+      position: absolute; width: 600px; height: 600px;
+      background-color: #00C896; filter: blur(150px); opacity: 0.1;
+      border-radius: 50%; top: 50%; right: -100px; transform: translateY(-50%); z-index: 0;
+    }
+    .slide-13 .content-wrapper-13 {
+      display: flex; flex: 1; gap: 40px; z-index: 10; align-items: center; min-height: 0;
+    }
+    .slide-13 .text-section-13 {
+      flex: 1; display: flex; flex-direction: column; justify-content: center;
+    }
+    .slide-13 .super-heading-13 {
+      font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700;
+      color: #00C896; text-transform: uppercase; letter-spacing: 3px;
+      margin-bottom: 8px; display: flex; align-items: center; gap: 12px;
+    }
+    .slide-13 .super-heading-13::before {
+      content: ''; display: block; width: 40px; height: 3px; background-color: #00C896;
+    }
+    .slide-13 .main-heading-13 {
+      font-family: 'Montserrat', sans-serif; font-size: 44px; font-weight: 800;
+      line-height: 1.1; margin-bottom: 10px; color: white;
+    }
+    .slide-13 .sub-heading-13 { font-size: 18px; color: #94A3B8; font-weight: 300; margin-bottom: 22px; }
+    .slide-13 .highlight-text-13 { color: #00C896; font-weight: 600; }
+    .slide-13 .vision-list-13 { display: flex; flex-direction: column; gap: 20px; }
+    .slide-13 .vision-item-13 {
+      display: flex; align-items: center;
+      background-color: rgba(255,255,255,0.05); padding: 18px 24px;
+      border-radius: 12px; border: 1px solid rgba(255,255,255,0.1);
+      cursor: pointer;
+      transition: transform 0.25s ease, background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+    .slide-13 .vision-item-13:hover {
+      transform: translateX(10px);
+      background-color: rgba(0,200,150,0.12);
+      border-color: #00C896;
+      box-shadow: 0 0 20px rgba(0,200,150,0.15);
+    }
+    .slide-13 .vision-item-13:hover .item-icon-13 {
+      transform: scale(1.15);
+      box-shadow: 0 0 24px rgba(0,200,150,0.7);
+    }
+    .slide-13 .item-icon-13 {
+      width: 48px; height: 48px; background-color: #00C896; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px; color: #1E3A5F; margin-right: 20px; flex-shrink: 0;
+      box-shadow: 0 0 15px rgba(0,200,150,0.4);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .slide-13 .item-text-13 { font-size: 18px; font-weight: 500; color: white; line-height: 1.3; }
+    .slide-13 .item-text-13 .hl { color: #00C896; font-weight: 600; }
+    .slide-13 .graphic-section-13 {
+      flex: 0.8; height: 100%; display: flex; align-items: center;
+      justify-content: center; position: relative;
+    }
+    .slide-13 .os-core-13 {
+      width: 180px; height: 180px; background: #1E3A5F;
+      border: 4px solid #00C896; border-radius: 50%;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      position: relative; z-index: 2; box-shadow: 0 0 30px rgba(0,200,150,0.2);
+    }
+    .slide-13 .os-logo-13 {
+      font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 22px;
+      text-align: center; line-height: 1;
+    }
+    .slide-13 .os-sub-13 { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; margin-top: 5px; opacity: 0.8; }
+    .slide-13 .orbit-ring-13 {
+      position: absolute; border-radius: 50%; border: 1px dashed rgba(255,255,255,0.2); z-index: 1;
+    }
+    .slide-13 .ring-1-13 { width: 300px; height: 300px; animation: spin13 20s linear infinite; }
+    .slide-13 .ring-2-13 { width: 450px; height: 450px; animation: spinReverse13 30s linear infinite; }
+    .slide-13 .dot-icon-13 {
+      position: absolute; width: 38px; height: 38px; background-color: #1E3A5F;
+      border: 2px solid #00C896; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; font-size: 14px; color: #00C896;
+    }
+    .slide-13 .orbit-dot-13 {
+      position: absolute; width: 14px; height: 14px; background-color: white;
+      border-radius: 50%; box-shadow: 0 0 10px rgba(255,255,255,0.8);
+    }
+    .slide-13 .pos-1-13 { top: 0; left: 50%; transform: translate(-50%, -50%); }
+    .slide-13 .pos-2-13 { bottom: 20%; right: 10%; transform: translate(50%, 50%); }
+    .slide-13 .pos-3-13 { bottom: 20%; left: 10%; transform: translate(-50%, 50%); }
+    .slide-13 .cta-container-13 {
+      margin-top: 18px; display: flex; flex-direction: column; align-items: center; z-index: 10;
+    }
+    .slide-13 .cta-button-13 {
+      background-color: #00C896; color: #1E3A5F; font-family: 'Montserrat', sans-serif;
+      font-size: 20px; font-weight: 800; padding: 14px 48px; border-radius: 50px;
+      text-decoration: none; display: inline-flex; align-items: center; gap: 14px;
+      box-shadow: 0 10px 25px rgba(0,200,150,0.4);
+    }
+    .slide-13 .cta-icon-13 {
+      background-color: #1E3A5F; color: #00C896; width: 30px; height: 30px;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px;
+    }
+    .slide-13 .contact-info-13 {
+      margin-top: 10px; font-size: 13px; color: #CBD5E1; letter-spacing: 1px;
+      display: flex; gap: 20px; align-items: center;
+    }
+    .slide-13 .separator-13 { width: 6px; height: 6px; background-color: #00C896; border-radius: 50%; }
+    @keyframes spin13 { 100% { transform: rotate(360deg); } }
+    @keyframes spinReverse13 { 100% { transform: rotate(-360deg); } }
+
+    /* PLACEHOLDER STYLES FOR OTHER SLIDES */
+    .slide-placeholder {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 48px;
+      font-weight: 800;
+    }
+
+    /* Keep stage visible by preventing full-viewport slide backgrounds */
+    .slide {
+      background: transparent !important;
+    }
+
+    /* Default slide card surface (all slides except custom overrides) */
+    .slide-content {
+      background-color: #ffffff;
+      background-image: none;
+    }
+
+    /* Slide 1 card background only (matches provided dark blue style) */
+    .slide-1 .slide-content {
+      background-color: #1e3a5f;
+      background-image: radial-gradient(circle at 2px 2px, rgba(148, 163, 184, 0.14) 1.1px, transparent 1.1px);
+      background-size: 28px 28px;
+    }
+
+    /* ===== PRINT: dark stage + white slide card ===== */
+    @media print {
+
+      /* Canvas / stage */
+      html,
+      body,
+      #deck {
+        background-color: #141a22 !important;
+        background-image:
+          radial-gradient(120% 90% at 50% -10%, #2a3648 0%, rgba(42, 54, 72, 0) 55%),
+          linear-gradient(180deg, #171f2a 0%, #1b2430 45%, #161d27 100%) !important;
+      }
+
+      /* Let print render full document instead of viewport scroll container */
+      html,
+      body {
+        height: auto !important;
+        overflow: visible !important;
+      }
+
+      #deck {
+        display: block !important;
+        height: auto !important;
+        overflow: visible !important;
+      }
+
+      /* Printable page frame (stage remains visible around the card) */
+      .slide {
+        position: relative !important;
+        width: 100% !important;
+        height: auto !important;
+        min-height: 100vh;
+        padding: 24px !important;
+        box-sizing: border-box;
+        background: transparent !important;
+
+        page-break-before: always;
+        page-break-after: always;
+        break-before: page;
+        break-after: page;
+      }
+
+      .slide:first-child {
+        page-break-before: auto;
+        break-before: auto;
+      }
+
+      /* Slide card: force white to stop canvas bleed through transparency */
+      .slide-content {
+        background-color: #ffffff !important;
+        color: #0f172a !important;
+        border-radius: 20px !important;
+        overflow: hidden !important;
+        background-image: none !important;
+        mix-blend-mode: normal !important;
+      }
+
+      /* Keep Slide 1 card styling in print (same as screen) */
+      .slide-1 .slide-content {
+        background-color: #1e3a5f !important;
+        background-image: radial-gradient(circle at 2px 2px, rgba(148, 163, 184, 0.14) 1.1px, transparent 1.1px) !important;
+        background-size: 28px 28px !important;
+        color: #ffffff !important;
+      }
+
+      /* Keep print background colors enabled in browsers */
+      * {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+  <div id="deck">
+    
+    <!-- SLIDE 1: TITLE SLIDE -->
+    <section class="slide slide-1">
+      <div class="slide-content">
+        <div class="slide-number">1 / 13</div>
+        <!-- Background SVG Pattern -->
+        <svg class="svg-pattern" height="100%" width="100%" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern height="40" id="grid" patternunits="userSpaceOnUse" width="40">
+              <circle cx="2" cy="2" fill="white" fill-opacity="0.15" r="1.5"></circle>
+            </pattern>
+          </defs>
+          <rect fill="url(#grid)" height="100%" width="100%"></rect>
+          <circle cx="1100" cy="150" fill="#00C896" fill-opacity="0.05" r="300"></circle>
+          <circle cx="1200" cy="600" fill="#2563EB" fill-opacity="0.08" r="200"></circle>
+          <rect fill="#ffffff" fill-opacity="0.03" height="300" rx="20" transform="rotate(20)" width="300" x="-50" y="500"></rect>
+        </svg>
+        
+        <!-- Tech lines -->
+        <div class="tech-line" style="top: 15%; left: 0; width: 100%; height: 1px;"></div>
+        <div class="tech-line" style="bottom: 15%; left: 0; width: 60%; height: 1px;"></div>
+        <div class="tech-line" style="top: 0; right: 15%; width: 1px; height: 40%;"></div>
+        
+        <div class="content-container">
+          <!-- Logo Mark -->
+          <div class="logo-mark">
+            <i class="fa-solid fa-rocket text-4xl text-white"></i>
+          </div>
+          
+          <!-- Main Title -->
+          <div class="title-text">
+            <p>Launch<span class="highlight-green">Today</span></p>
+          </div>
+          
+          <!-- Subtitle -->
+          <div class="subtitle-text">
+            <p>The Compliance Engine for Startup Ecosystems</p>
+          </div>
+          
+          <!-- Footer Tagline -->
+          <div class="footer-tagline">
+            <p>Built by FoundrVerse</p>
+            <div class="footer-divider"></div>
+            <p>Powering Compliant Startup Ecosystems</p>
+          </div>
+        </div>
+        
+        <!-- Decorative Illustration -->
+        <div style="position: absolute; right: 80px; top: 50%; transform: translateY(-50%); width: 450px; height: 450px; z-index: 5;">
+          <svg fill="none" style="width: 100%; height: 100%;" viewbox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="200" cy="200" r="150" stroke="#00C896" stroke-dasharray="10 10" stroke-opacity="0.3" stroke-width="2"></circle>
+            <circle cx="200" cy="200" r="100" stroke="#2563EB" stroke-opacity="0.5" stroke-width="2"></circle>
+            <circle cx="200" cy="200" fill="#1E3A5F" r="50" stroke="#00C896" stroke-width="4"></circle>
+            <circle cx="200" cy="50" fill="#00C896" r="15"></circle>
+            <circle cx="350" cy="200" fill="#2563EB" r="12"></circle>
+            <circle cx="200" cy="350" fill="#ffffff" fill-opacity="0.5" r="10"></circle>
+            <circle cx="50" cy="200" fill="#00C896" fill-opacity="0.7" r="12"></circle>
+            <path d="M200 65 L200 150" stroke="white" stroke-opacity="0.2" stroke-width="2"></path>
+            <path d="M338 200 L250 200" stroke="white" stroke-opacity="0.2" stroke-width="2"></path>
+            <path d="M200 340 L200 250" stroke="white" stroke-opacity="0.2" stroke-width="2"></path>
+            <path d="M62 200 L150 200" stroke="white" stroke-opacity="0.2" stroke-width="2"></path>
+            <g transform="translate(182, 182) scale(1.5)">
+              <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" fill="white"></path>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 2: PROBLEM STATEMENT -->
+    <section class="slide slide-2">
+      <div class="slide-content">
+        <div class="slide-number">2 / 13</div>
+        <div class="slide-container">
+          <!-- Sidebar Decoration -->
+          <div class="sidebar-accent"></div>
+          <div class="sidebar-pattern"></div>
+          
+          <div class="main-content">
+            <!-- Header -->
+            <div class="header-section">
+              <div class="super-heading">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                <p>The Real Problem</p>
+              </div>
+              <div class="main-heading">
+                <p>Let's Address the Elephant in the Room</p>
+              </div>
+            </div>
+            
+            <!-- Content Grid -->
+            <div class="content-grid">
+              <!-- Text Column -->
+              <div class="text-column">
+                <div class="problem-list">
+                  <div class="problem-item">
+                    <div class="bullet-point"><i class="fa-solid fa-clock"></i></div>
+                    <div class="item-content">
+                      <h3>70% Startups Delay Compliance</h3>
+                      <p>Founders ignore critical filings until penalties hit, draining capital.</p>
+                    </div>
+                  </div>
+                  <div class="problem-item">
+                    <div class="bullet-point"><i class="fa-solid fa-table"></i></div>
+                    <div class="item-content">
+                      <h3>Messy Cap Tables</h3>
+                      <p>Equity distribution records are often unstructured and error-prone.</p>
+                    </div>
+                  </div>
+                  <div class="problem-item">
+                    <div class="bullet-point"><i class="fa-solid fa-file-invoice-dollar"></i></div>
+                    <div class="item-content">
+                      <h3>Inconsistent GST &amp; TDS</h3>
+                      <p>Filings are sporadic, leading to regulatory red flags.</p>
+                    </div>
+                  </div>
+                  <div class="problem-item">
+                    <div class="bullet-point"><i class="fa-solid fa-magnifying-glass-chart"></i></div>
+                    <div class="item-content">
+                      <h3>Due Diligence Nightmares</h3>
+                      <p>Funding rounds stall because compliance history is a mess.</p>
+                    </div>
+                  </div>
+                  <div class="problem-item">
+                    <div class="bullet-point"><i class="fa-solid fa-building-shield"></i></div>
+                    <div class="item-content">
+                      <h3>Incubator Reputation Hit</h3>
+                      <p>Ecosystem credibility suffers when portfolio startups default.</p>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- Quote Box -->
+                <div class="quote-box">
+                  <p class="quote-text">"You don't have visibility. You don't have control. You don't have a compliance system."</p>
+                </div>
+              </div>
+              
+              <!-- Chart Column -->
+              <div class="chart-column">
+                <div class="chart-container">
+                  <canvas id="complianceChart"></canvas>
+                  <div class="stat-overlay">
+                    <p class="stat-number">70%</p>
+                    <p class="stat-label">Delay Compliance</p>
+                  </div>
+                </div>
+                <div class="chart-caption">
+                  <p>Source: Industry Analysis of Early-Stage Startups</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Footer -->
+          <div class="slide-footer">
+            <p>LaunchToday | The Compliance Engine</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 3: BROKEN CURRENT FLOW -->
+    <section class="slide slide-3">
+      <div class="slide-content">
+        <div class="slide-number">3 / 13</div>
+        <div class="slide-container-3">
+          <!-- Header -->
+          <div class="header-section">
+            <div class="super-heading">
+              <i class="fa-solid fa-link-slash"></i>
+              <p>Current Process</p>
+            </div>
+            <div class="main-heading">
+              <p>The Broken Current Flow</p>
+            </div>
+          </div>
+          
+          <!-- Flow Visual -->
+          <div class="flow-container">
+            <!-- SVG Line for Snake Connection -->
+            <svg class="snake-line" viewbox="0 0 1120 400">
+              <path d="M 1030 70 Q 1080 70 1080 120 L 1080 170 Q 1080 220 1030 220" fill="none" stroke="#CBD5E1" stroke-width="2"></path>
+            </svg>
+            
+            <!-- Row 1: Left to Right -->
+            <div class="flow-row">
+              <div class="node start">
+                <div class="node-icon"><i class="fa-solid fa-rocket"></i></div>
+                <div class="node-label"><p>Startup</p></div>
+              </div>
+              <div class="arrow-right"></div>
+              
+              <div class="node">
+                <div class="node-icon"><i class="fa-solid fa-user-tie"></i></div>
+                <div class="node-label"><p>Random CA</p></div>
+              </div>
+              <div class="arrow-right"></div>
+              
+              <div class="node chaos">
+                <div class="node-icon">
+                  <i class="fa-regular fa-envelope"></i>
+                  <i class="fa-brands fa-whatsapp text-green-500 ml-1"></i>
+                </div>
+                <div class="node-label"><p>Emails &amp; WhatsApp</p></div>
+              </div>
+              <div class="arrow-right"></div>
+              
+              <div class="node chaos">
+                <div class="node-icon"><i class="fa-regular fa-file-excel text-green-700"></i></div>
+                <div class="node-label"><p>Manual Excel</p></div>
+              </div>
+            </div>
+            
+            <!-- Row 2: Right to Left -->
+            <div class="flow-row bottom">
+              <div class="node danger">
+                <div class="node-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                <div class="node-label"><p>Missed Deadlines</p></div>
+              </div>
+              <div class="arrow-left"></div>
+              
+              <div class="node danger">
+                <div class="node-icon"><i class="fa-solid fa-gavel"></i></div>
+                <div class="node-label"><p>Penalties</p></div>
+              </div>
+              <div class="arrow-left"></div>
+              
+              <div class="node danger firefighting">
+                <div class="node-icon"><i class="fa-solid fa-fire-extinguisher"></i></div>
+                <div class="node-label"><p>Firefighting</p></div>
+              </div>
+              <div style="width: 180px; visibility: hidden;"></div>
+            </div>
+          </div>
+          
+          <!-- Background Stamp -->
+          <div class="broken-stamp">THAT'S BROKEN</div>
+          
+          <!-- Problem Summary Footer -->
+          <div class="problem-summary">
+            <div class="problem-title">
+              <p>The Problem:</p>
+            </div>
+            <div class="problem-items">
+              <div class="p-item">
+                <div class="p-icon"><i class="fa-solid fa-xmark"></i></div>
+                <div class="p-text"><p>No Dashboard</p></div>
+              </div>
+              <div class="p-item">
+                <div class="p-icon"><i class="fa-solid fa-xmark"></i></div>
+                <div class="p-text"><p>No Transparency</p></div>
+              </div>
+              <div class="p-item">
+                <div class="p-icon"><i class="fa-solid fa-xmark"></i></div>
+                <div class="p-text"><p>No Tracking</p></div>
+              </div>
+              <div class="p-item">
+                <div class="p-icon"><i class="fa-solid fa-eye-slash"></i></div>
+                <div class="p-text"><p>No Ecosystem Visibility</p></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 4: LAUNCHTODAY SOLUTION -->
+    <section class="slide slide-4">
+      <div class="slide-content">
+        <div class="slide-number">4 / 13</div>
+        <div class="slide-container-4">
+          <!-- Sidebar -->
+          <div class="sidebar-accent-4"></div>
+          <div class="tech-bg"></div>
+          
+          <!-- Header -->
+          <div class="header-section">
+            <div class="super-heading">
+              <i class="fa-solid fa-layer-group"></i>
+              <p>The Solution</p>
+            </div>
+            <div class="main-heading">
+              <p>Introducing LaunchToday</p>
+            </div>
+            <div class="sub-heading">
+              <p>Tech-Enabled Compliance Infrastructure for Incubators</p>
+            </div>
+          </div>
+          
+          <!-- Hub & Spoke Visual -->
+          <div class="hub-container">
+            <!-- Orbits -->
+            <div class="orbit-circle orbit-1"></div>
+            <div class="orbit-circle orbit-2"></div>
+            
+            <!-- Connecting Lines SVG -->
+            <svg class="lines-svg">
+              <g stroke="#CBD5E1" stroke-dasharray="4 4" stroke-width="1">
+                <line x1="50%" x2="50%" y1="50%" y2="15%"></line>
+                <line x1="50%" x2="73%" y1="50%" y2="23%"></line>
+                <line x1="50%" x2="82%" y1="50%" y2="43%"></line>
+                <line x1="50%" x2="78%" y1="50%" y2="67%"></line>
+                <line x1="50%" x2="60%" y1="50%" y2="85%"></line>
+                <line x1="50%" x2="22%" y1="50%" y2="85%"></line>
+                <line x1="50%" x2="5%" y1="50%" y2="67%"></line>
+                <line x1="50%" x2="0%" y1="50%" y2="43%"></line>
+                <line x1="50%" x2="8%" y1="50%" y2="23%"></line>
+              </g>
+            </svg>
+            
+            <!-- Center Hub -->
+            <div class="center-hub">
+              <div class="hub-icon">
+                <i class="fa-solid fa-server"></i>
+              </div>
+              <div class="hub-label">
+                <p>Centralized<br/>Dashboard</p>
+              </div>
+            </div>
+            
+            <!-- Services Nodes -->
+            <div class="spoke-node pos-1">
+              <div class="spoke-icon-circle"><i class="fa-solid fa-building spoke-icon"></i></div>
+              <div class="spoke-text"><p>Company Registration</p></div>
+            </div>
+            <div class="spoke-node pos-2">
+              <div class="spoke-icon-circle"><i class="fa-solid fa-file-invoice-dollar spoke-icon"></i></div>
+              <div class="spoke-text"><p>GST &amp; Tax Reg</p></div>
+            </div>
+            <div class="spoke-node pos-3">
+              <div class="spoke-icon-circle"><i class="fa-solid fa-scale-balanced spoke-icon"></i></div>
+              <div class="spoke-text"><p>ROC Compliance</p></div>
+            </div>
+            <div class="spoke-node pos-4">
+              <div class="spoke-icon-circle"><i class="fa-solid fa-calendar-check spoke-icon"></i></div>
+              <div class="spoke-text"><p>Annual Filings</p></div>
+            </div>
+            <div class="spoke-node pos-5">
+              <div class="spoke-icon-circle"><i class="fa-solid fa-file-contract spoke-icon"></i></div>
+              <div class="spoke-text"><p>GST Filings</p></div>
+            </div>
+            <div class="spoke-node pos-6">
+              <div class="spoke-icon-circle"><i class="fa-solid fa-hand-holding-dollar spoke-icon"></i></div>
+              <div class="spoke-text"><p>TDS Filings</p></div>
+            </div>
+            <div class="spoke-node pos-7">
+              <div class="spoke-icon-circle"><i class="fa-solid fa-calculator spoke-icon"></i></div>
+              <div class="spoke-text"><p>Accounting &amp; Books</p></div>
+            </div>
+            <div class="spoke-node pos-8">
+              <div class="spoke-icon-circle"><i class="fa-solid fa-users spoke-icon"></i></div>
+              <div class="spoke-text"><p>Payroll Compliance</p></div>
+            </div>
+            <div class="spoke-node pos-9">
+              <div class="spoke-icon-circle"><i class="fa-solid fa-magnifying-glass-chart spoke-icon"></i></div>
+              <div class="spoke-text"><p>Due Diligence Prep</p></div>
+            </div>
+          </div>
+          
+          <!-- Footer -->
+          <div class="slide-footer">
+            <p>LaunchToday | All-in-One Compliance</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 5: DIFFERENTIATORS -->
+    <section class="slide slide-5">
+      <div class="slide-content">
+        <div class="slide-number">5 / 13</div>
+        <div class="slide-container-5">
+          <div class="sidebar-accent-5"></div>
+          
+          <!-- Left Panel -->
+          <div class="left-panel">
+            <!-- SVG Pattern -->
+            <svg class="svg-pattern" height="100%" width="100%" xmlns="http://www.w3.org/2000/svg">
+              <pattern height="20" id="dotGrid" patternunits="userSpaceOnUse" width="20" x="0" y="0">
+                <circle cx="2" cy="2" fill="white" fill-opacity="0.3" r="1.5"></circle>
+              </pattern>
+              <rect fill="url(#dotGrid)" height="100%" width="100%"></rect>
+            </svg>
+            
+            <div class="super-heading"><p>Differentiators</p></div>
+            <div class="main-heading">
+              <p>We Are NOT Another Clone</p>
+            </div>
+            <div class="description-text">
+              <p>While others offer disconnected services, we provide a complete technology infrastructure.</p>
+            </div>
+            <div class="vs-badge">
+              <p class="vs-title">Competitors</p>
+              <p class="vs-text">Emails, Excel sheets, manual follow-ups, and zero visibility.</p>
+            </div>
+          </div>
+          
+          <!-- Right Panel -->
+          <div class="right-panel">
+            <div class="features-grid">
+              <!-- Card 1 -->
+              <div class="feature-card">
+                <div class="card-icon-wrapper">
+                  <i class="fa-solid fa-desktop card-icon"></i>
+                </div>
+                <div class="card-title"><p>Dedicated Dashboard</p></div>
+                <div class="card-desc"><p>A personalized view for every startup to manage their entire compliance lifecycle.</p></div>
+              </div>
+              
+              <!-- Card 2 -->
+              <div class="feature-card">
+                <div class="card-icon-wrapper">
+                  <i class="fa-solid fa-timeline card-icon"></i>
+                </div>
+                <div class="card-title"><p>Tracking Timeline</p></div>
+                <div class="card-desc"><p>Visual roadmap of upcoming deadlines so nothing ever falls through the cracks.</p></div>
+              </div>
+              
+              <!-- Card 3 -->
+              <div class="feature-card">
+                <div class="card-icon-wrapper">
+                  <i class="fa-solid fa-vault card-icon"></i>
+                </div>
+                <div class="card-title"><p>Document Vault</p></div>
+                <div class="card-desc"><p>Secure cloud storage for all regulatory documents, accessible anytime.</p></div>
+              </div>
+              
+              <!-- Card 4 -->
+              <div class="feature-card">
+                <div class="card-icon-wrapper">
+                  <i class="fa-solid fa-file-invoice card-icon"></i>
+                </div>
+                <div class="card-title"><p>Payment Tracking</p></div>
+                <div class="card-desc"><p>Integrated tracking for all statutory payments and challans in one place.</p></div>
+              </div>
+              
+              <!-- Card 5 -->
+              <div class="feature-card">
+                <div class="card-icon-wrapper">
+                  <i class="fa-regular fa-bell card-icon"></i>
+                </div>
+                <div class="card-title"><p>Automated Reminders</p></div>
+                <div class="card-desc"><p>Smart notifications via email and WhatsApp well before due dates.</p></div>
+              </div>
+              
+              <!-- Card 6 -->
+              <div class="feature-card">
+                <div class="card-icon-wrapper">
+                  <i class="fa-regular fa-eye card-icon"></i>
+                </div>
+                <div class="card-title"><p>Status Transparency</p></div>
+                <div class="card-desc"><p>Real-time updates on filing status. No more chasing CAs for updates.</p></div>
+              </div>
+              
+              <!-- Card 7 -->
+              <div class="feature-card">
+                <div class="card-icon-wrapper">
+                  <i class="fa-solid fa-stairs card-icon"></i>
+                </div>
+                <div class="card-title"><p>Escalation Matrix</p></div>
+                <div class="card-desc"><p>Clear hierarchy for issue resolution ensuring rapid response times.</p></div>
+              </div>
+              
+              <!-- Card 8 - Highlighted -->
+              <div class="feature-card highlight">
+                <div class="card-icon-wrapper">
+                  <i class="fa-solid fa-chart-pie card-icon"></i>
+                </div>
+                <div class="card-title"><p>Incubator Admin View</p></div>
+                <div class="card-desc"><p>Bird's-eye view of your entire cohort's compliance health and risks.</p></div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Footer -->
+          <div class="slide-footer-5">
+            <p>LaunchToday | The Tech Difference</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 6: INCUBATOR ADMIN DASHBOARD -->
+    <section class="slide slide-6">
+      <div class="slide-content">
+        <div class="slide-number">6 / 13</div>
+        <div class="slide-container-6">
+          <div class="ed-bg-glow"></div>
+
+          <div class="ed-header">
+            <div class="ed-header-row">
+              <div class="ed-icon"><i class="fa-solid fa-shield-halved"></i></div>
+              <h1 class="ed-title">Enterprise Dashboard Overview</h1>
+            </div>
+            <p class="ed-subtitle">Centralized control for compliance, payments, and team management.</p>
+          </div>
+
+          <div class="ed-main">
+            <div>
+              <div class="ed-feature-list">
+                <div class="ed-feature">
+                  <div class="ed-feature-icon"><i class="fa-solid fa-chart-pie"></i></div>
+                  <div>
+                    <p class="ed-feature-title">Portfolio Health</p>
+                    <p class="ed-feature-text">Real-time visibility into compliance status across all portfolio companies with automated risk scoring.</p>
+                  </div>
+                </div>
+
+                <div class="ed-feature">
+                  <div class="ed-feature-icon"><i class="fa-solid fa-file-invoice-dollar"></i></div>
+                  <div>
+                    <p class="ed-feature-title">Smart Payments</p>
+                    <p class="ed-feature-text">Track statutory payments and challans in one unified view with instant verification status.</p>
+                  </div>
+                </div>
+
+                <div class="ed-feature">
+                  <div class="ed-feature-icon"><i class="fa-solid fa-users-gear"></i></div>
+                  <div>
+                    <p class="ed-feature-title">Team Delegation</p>
+                    <p class="ed-feature-text">Granular access controls allow you to assign specific managers to startups for focused support.</p>
+                  </div>
+                </div>
+              </div>
+
+              <p class="ed-preview-label">Module Previews</p>
+              <!-- ROW 1: My Startups | Create Compliance | Transactions -->
+              <div class="ed-thumb-row">
+                <!-- 1: My Startups -->
+                <div class="ed-thumb" data-id="1" data-url="portal.complianceplatform.io/startups">
+                  <div class="ed-thumb-overlay"><div class="ed-expand-icon">⤢ Click to expand</div></div>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200" style="width:100%;height:82px;display:block">
+                    <defs><linearGradient id="sb1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#f8fafc"/><stop offset="100%" stop-color="#f1f5f9"/></linearGradient></defs>
+                    <rect width="400" height="200" fill="#f8fafc"/>
+                    <rect width="60" height="200" fill="url(#sb1)"/>
+                    <rect x="0" y="0" width="3" height="200" fill="#0d9488" opacity=".4"/>
+                    <rect x="7" y="12" width="46" height="14" rx="7" fill="#ccfbf1"/>
+                    <text x="14" y="22" font-size="6" font-weight="700" fill="#0d9488" font-family="Inter,sans-serif">Admin Portal</text>
+                    <rect x="7" y="34" width="46" height="10" rx="3" fill="#e2e8f0"/>
+                    <rect x="0" y="50" width="60" height="16" fill="#0d9488"/>
+                    <text x="9" y="61" font-size="6" font-weight="700" fill="#ffffff" font-family="Inter,sans-serif">My Startups</text>
+                    <rect x="7" y="74" width="46" height="9" rx="3" fill="#e2e8f0"/>
+                    <rect x="7" y="90" width="46" height="9" rx="3" fill="#e2e8f0"/>
+                    <rect x="7" y="106" width="46" height="9" rx="3" fill="#e2e8f0"/>
+                    <rect x="7" y="122" width="46" height="9" rx="3" fill="#e2e8f0"/>
+                    <!-- Header -->
+                    <text x="72" y="22" font-size="11" font-weight="700" fill="#1e293b" font-family="Inter,sans-serif">My Startups</text>
+                    <text x="72" y="34" font-size="6" fill="#94a3b8" font-family="Inter,sans-serif">24 portfolio companies · 96% avg compliance</text>
+                    <rect x="72" y="40" width="130" height="13" rx="6" fill="#ffffff" stroke="#e2e8f0"/>
+                    <text x="80" y="50" font-size="6" fill="#94a3b8" font-family="Inter,sans-serif">Search startups...</text>
+                    <rect x="330" y="38" width="62" height="17" rx="6" fill="#0d9488"/>
+                    <text x="341" y="49" font-size="6" font-weight="700" fill="#ffffff" font-family="Inter,sans-serif">+ Add Startup</text>
+                    <!-- Card 1 -->
+                    <rect x="72" y="60" width="98" height="130" rx="8" fill="#ffffff" stroke="#e2e8f0"/>
+                    <rect x="80" y="68" width="14" height="12" rx="3" fill="#eff6ff"/>
+                    <rect x="100" y="68" width="36" height="12" rx="6" fill="#d1fae5"/>
+                    <text x="107" y="77" font-size="6" font-weight="700" fill="#059669" font-family="Inter,sans-serif">GREEN</text>
+                    <text x="80" y="96" font-size="8" font-weight="700" fill="#1e293b" font-family="Inter,sans-serif">NovaSpark</text>
+                    <text x="80" y="107" font-size="5" fill="#94a3b8" font-family="Inter,sans-serif">EdTech · Bengaluru</text>
+                    <circle cx="96" cy="135" r="13" fill="none" stroke="#e2e8f0" stroke-width="2.5"/>
+                    <circle cx="96" cy="135" r="13" fill="none" stroke="#10b981" stroke-width="2.5" stroke-dasharray="82" stroke-dashoffset="0"/>
+                    <text x="88" y="139" font-size="8" font-weight="700" fill="#10b981" font-family="Inter,sans-serif">98%</text>
+                    <text x="80" y="180" font-size="6" fill="#0d9488" font-family="Inter,sans-serif">View Details →</text>
+                    <!-- Card 2 -->
+                    <rect x="178" y="60" width="98" height="130" rx="8" fill="#ffffff" stroke="#e2e8f0"/>
+                    <rect x="186" y="68" width="14" height="12" rx="3" fill="#eff6ff"/>
+                    <rect x="206" y="68" width="36" height="12" rx="6" fill="#d1fae5"/>
+                    <text x="213" y="77" font-size="6" font-weight="700" fill="#059669" font-family="Inter,sans-serif">GREEN</text>
+                    <text x="186" y="96" font-size="8" font-weight="700" fill="#1e293b" font-family="Inter,sans-serif">FinBridge</text>
+                    <text x="186" y="107" font-size="5" fill="#94a3b8" font-family="Inter,sans-serif">FinTech · Mumbai</text>
+                    <circle cx="202" cy="135" r="13" fill="none" stroke="#e2e8f0" stroke-width="2.5"/>
+                    <circle cx="202" cy="135" r="13" fill="none" stroke="#10b981" stroke-width="2.5" stroke-dasharray="82" stroke-dashoffset="0"/>
+                    <text x="194" y="139" font-size="8" font-weight="700" fill="#10b981" font-family="Inter,sans-serif">100%</text>
+                    <text x="186" y="180" font-size="6" fill="#0d9488" font-family="Inter,sans-serif">View Details →</text>
+                    <!-- Card 3 -->
+                    <rect x="284" y="60" width="108" height="130" rx="8" fill="#ffffff" stroke="#e2e8f0"/>
+                    <rect x="292" y="68" width="14" height="12" rx="3" fill="#eff6ff"/>
+                    <rect x="312" y="68" width="36" height="12" rx="6" fill="#fef3c7"/>
+                    <text x="318" y="77" font-size="6" font-weight="700" fill="#d97706" font-family="Inter,sans-serif">AMBER</text>
+                    <text x="292" y="96" font-size="8" font-weight="700" fill="#1e293b" font-family="Inter,sans-serif">CloudMesh</text>
+                    <text x="292" y="107" font-size="5" fill="#94a3b8" font-family="Inter,sans-serif">SaaS · Hyderabad</text>
+                    <circle cx="308" cy="135" r="13" fill="none" stroke="#e2e8f0" stroke-width="2.5"/>
+                    <circle cx="308" cy="135" r="13" fill="none" stroke="#f59e0b" stroke-width="2.5" stroke-dasharray="67" stroke-dashoffset="0"/>
+                    <text x="300" y="139" font-size="8" font-weight="700" fill="#f59e0b" font-family="Inter,sans-serif">82%</text>
+                    <text x="292" y="180" font-size="6" fill="#0d9488" font-family="Inter,sans-serif">View Details →</text>
+                  </svg>
+                  <div class="ed-thumb-caption">My Startups</div>
+                </div>
+                <!-- 2: Create Compliance -->
+                <div class="ed-thumb" data-id="2" data-url="portal.complianceplatform.io/compliance/create">
+                  <div class="ed-thumb-overlay"><div class="ed-expand-icon">⤢ Click to expand</div></div>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200" style="width:100%;height:82px;display:block">
+                    <rect width="400" height="200" fill="#f8fafc"/>
+                    <rect width="60" height="200" fill="#f1f5f9"/>
+                    <rect x="0" y="0" width="3" height="200" fill="#0d9488" opacity=".4"/>
+                    <rect x="7" y="12" width="46" height="14" rx="7" fill="#ccfbf1"/>
+                    <text x="14" y="22" font-size="6" font-weight="700" fill="#0d9488" font-family="Inter,sans-serif">Admin Portal</text>
+                    <rect x="7" y="34" width="46" height="9" rx="3" fill="#e2e8f0"/>
+                    <rect x="7" y="49" width="46" height="9" rx="3" fill="#e2e8f0"/>
+                    <rect x="0" y="64" width="60" height="16" fill="#0d9488"/>
+                    <text x="6" y="75" font-size="5.5" font-weight="700" fill="#ffffff" font-family="Inter,sans-serif">Create Compliance</text>
+                    <rect x="7" y="86" width="46" height="9" rx="3" fill="#e2e8f0"/>
+                    <rect x="7" y="101" width="46" height="9" rx="3" fill="#e2e8f0"/>
+                    <rect x="7" y="116" width="46" height="9" rx="3" fill="#e2e8f0"/>
+                    <rect x="7" y="131" width="46" height="9" rx="3" fill="#e2e8f0"/>
+                    <rect x="7" y="146" width="46" height="9" rx="3" fill="#e2e8f0"/>
+                    <rect x="7" y="161" width="46" height="9" rx="3" fill="#e2e8f0"/>
+                    <rect x="7" y="176" width="46" height="9" rx="3" fill="#e2e8f0"/>
+                    <!-- Header -->
+                    <text x="72" y="22" font-size="11" font-weight="700" fill="#1e293b" font-family="Inter,sans-serif">Create Compliance</text>
+                    <text x="72" y="33" font-size="6" fill="#94a3b8" font-family="Inter,sans-serif">Define a new compliance obligation for a startup</text>
+                    <!-- Form card -->
+                    <rect x="72" y="40" width="320" height="152" rx="8" fill="#ffffff" stroke="#e2e8f0"/>
+                    <rect x="80" y="50" width="3" height="10" rx="1" fill="#0d9488"/>
+                    <text x="87" y="59" font-size="7" font-weight="700" fill="#1e293b" font-family="Inter,sans-serif">Basic Information</text>
+                    <!-- Field: Select Startups -->
+                    <text x="80" y="74" font-size="6" fill="#475569" font-family="Inter,sans-serif">Select Startups *</text>
+                    <rect x="80" y="77" width="190" height="14" rx="5" fill="#f8fafc" stroke="#e2e8f0"/>
+                    <text x="88" y="87" font-size="6" fill="#1e293b" font-family="Inter,sans-serif">NovaSpark Pvt. Ltd., FinBridge LLP</text>
+                    <!-- Field: Category -->
+                    <text x="80" y="103" font-size="6" fill="#475569" font-family="Inter,sans-serif">Compliance Category *</text>
+                    <rect x="80" y="106" width="120" height="14" rx="5" fill="#f8fafc" stroke="#e2e8f0"/>
+                    <text x="88" y="116" font-size="6" fill="#1e293b" font-family="Inter,sans-serif">Taxation — GST</text>
+                    <!-- Field: Name -->
+                    <text x="80" y="132" font-size="6" fill="#475569" font-family="Inter,sans-serif">Compliance Name *</text>
+                    <rect x="80" y="135" width="190" height="14" rx="5" fill="#f8fafc" stroke="#0d9488" stroke-width="1.2"/>
+                    <text x="88" y="145" font-size="6" fill="#1e293b" font-family="Inter,sans-serif">GST Return — Q4 FY 2025-26</text>
+                    <!-- Field: Description -->
+                    <text x="80" y="161" font-size="6" fill="#475569" font-family="Inter,sans-serif">Description</text>
+                    <rect x="80" y="164" width="300" height="20" rx="5" fill="#f8fafc" stroke="#e2e8f0"/>
+                    <text x="88" y="177" font-size="6" fill="#94a3b8" font-family="Inter,sans-serif">Monthly GST filing for all registered startups in cohort...</text>
+                  </svg>
+                  <div class="ed-thumb-caption">Create Compliance</div>
+                </div>
+                <!-- 3: Transactions -->
+                <div class="ed-thumb" data-id="3" data-url="portal.complianceplatform.io/transactions">
+                  <div class="ed-thumb-overlay"><div class="ed-expand-icon">⤢ Click to expand</div></div>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200" style="width:100%;height:82px;display:block">
+                    <rect width="400" height="200" fill="#f8fafc"/>
+                    <rect width="60" height="200" fill="#f1f5f9"/>
+                    <rect x="0" y="0" width="3" height="200" fill="#0d9488" opacity=".4"/>
+                    <rect x="7" y="12" width="46" height="14" rx="7" fill="#ccfbf1"/>
+                    <text x="14" y="22" font-size="6" font-weight="700" fill="#0d9488" font-family="Inter,sans-serif">Admin Portal</text>
+                    <rect x="7" y="34" width="46" height="9" rx="3" fill="#e2e8f0"/>
+                    <rect x="7" y="49" width="46" height="9" rx="3" fill="#e2e8f0"/>
+                    <rect x="7" y="64" width="46" height="9" rx="3" fill="#e2e8f0"/>
+                    <rect x="7" y="79" width="46" height="9" rx="3" fill="#e2e8f0"/>
+                    <rect x="0" y="94" width="60" height="16" fill="#0d9488"/>
+                    <text x="6" y="105" font-size="6" font-weight="700" fill="#ffffff" font-family="Inter,sans-serif">Transactions</text>
+                    <rect x="7" y="126" width="46" height="9" rx="3" fill="#e2e8f0"/>
+                    <rect x="7" y="141" width="46" height="9" rx="3" fill="#e2e8f0"/>
+                    <rect x="7" y="156" width="46" height="9" rx="3" fill="#e2e8f0"/>
+                    <rect x="7" y="171" width="46" height="9" rx="3" fill="#e2e8f0"/>
+                    <rect x="7" y="186" width="46" height="9" rx="3" fill="#e2e8f0"/>
+                    <!-- Header -->
+                    <text x="72" y="20" font-size="11" font-weight="700" fill="#1e293b" font-family="Inter,sans-serif">Transaction History</text>
+                    <text x="72" y="31" font-size="6" fill="#94a3b8" font-family="Inter,sans-serif">Manage and confirm compliance payments</text>
+                    <!-- Summary cards -->
+                    <rect x="72" y="38" width="148" height="30" rx="7" fill="#ffffff" stroke="#e2e8f0"/>
+                    <circle cx="86" cy="53" r="7" fill="#d1fae5"/>
+                    <text x="86" y="53" font-size="6" font-weight="700" fill="#059669" font-family="Inter,sans-serif" text-anchor="middle" dominant-baseline="central">₹</text>
+                    <text x="98" y="48" font-size="8" font-weight="700" fill="#1e293b" font-family="Inter,sans-serif">₹4,82,500</text>
+                    <text x="98" y="62" font-size="5" fill="#94a3b8" font-family="Inter,sans-serif">Total Confirmed</text>
+                    <rect x="228" y="38" width="164" height="30" rx="7" fill="#ffffff" stroke="#e2e8f0"/>
+                    <circle cx="242" cy="53" r="7" fill="#fef3c7"/>
+                    <text x="242" y="53" font-size="6" font-weight="700" fill="#d97706" font-family="Inter,sans-serif" text-anchor="middle" dominant-baseline="central">₹</text>
+                    <text x="254" y="48" font-size="8" font-weight="700" fill="#1e293b" font-family="Inter,sans-serif">₹76,200</text>
+                    <text x="254" y="62" font-size="5" fill="#94a3b8" font-family="Inter,sans-serif">Pending Confirmation</text>
+                    <!-- Filters -->
+                    <rect x="72" y="76" width="58" height="12" rx="5" fill="#ffffff" stroke="#e2e8f0"/>
+                    <text x="78" y="85" font-size="5.5" fill="#475569" font-family="Inter,sans-serif">All Status ▾</text>
+                    <rect x="136" y="76" width="54" height="12" rx="5" fill="#ffffff" stroke="#e2e8f0"/>
+                    <text x="140" y="85" font-size="5.5" fill="#475569" font-family="Inter,sans-serif">This Month ▾</text>
+                    <!-- Table header row -->
+                    <rect x="72" y="96" width="320" height="13" fill="#f1f5f9"/>
+                    <text x="78" y="105" font-size="5" font-weight="700" fill="#64748b" font-family="Inter,sans-serif">DUE DATE</text>
+                    <text x="128" y="105" font-size="5" font-weight="700" fill="#64748b" font-family="Inter,sans-serif">STARTUP</text>
+                    <text x="185" y="105" font-size="5" font-weight="700" fill="#64748b" font-family="Inter,sans-serif">COMPLIANCE</text>
+                    <text x="270" y="105" font-size="5" font-weight="700" fill="#64748b" font-family="Inter,sans-serif">AMOUNT</text>
+                    <text x="315" y="105" font-size="5" font-weight="700" fill="#64748b" font-family="Inter,sans-serif">STATUS</text>
+                    <!-- Row 1 -->
+                    <line x1="72" y1="109" x2="392" y2="109" stroke="#f1f5f9" stroke-width="1"/>
+                    <text x="78" y="118" font-size="5.5" fill="#475569" font-family="Inter,sans-serif">15 Mar 2026</text>
+                    <text x="128" y="118" font-size="5.5" fill="#1e293b" font-family="Inter,sans-serif">NovaSpark</text>
+                    <text x="185" y="118" font-size="5.5" fill="#475569" font-family="Inter,sans-serif">GST Return Q4</text>
+                    <text x="270" y="118" font-size="5.5" fill="#1e293b" font-family="Inter,sans-serif">₹18,500</text>
+                    <rect x="315" y="113" width="36" height="10" rx="5" fill="#d1fae5"/>
+                    <text x="320" y="120" font-size="5" font-weight="700" fill="#059669" font-family="Inter,sans-serif">Confirmed</text>
+                    <!-- Row 2 -->
+                    <line x1="72" y1="125" x2="392" y2="125" stroke="#f1f5f9" stroke-width="1"/>
+                    <text x="78" y="134" font-size="5.5" fill="#475569" font-family="Inter,sans-serif">20 Mar 2026</text>
+                    <text x="128" y="134" font-size="5.5" fill="#1e293b" font-family="Inter,sans-serif">FinBridge LLP</text>
+                    <text x="185" y="134" font-size="5.5" fill="#475569" font-family="Inter,sans-serif">TDS Filing Feb</text>
+                    <text x="270" y="134" font-size="5.5" fill="#1e293b" font-family="Inter,sans-serif">₹9,750</text>
+                    <rect x="315" y="129" width="36" height="10" rx="5" fill="#fef3c7"/>
+                    <text x="319" y="136" font-size="5" font-weight="700" fill="#d97706" font-family="Inter,sans-serif">Pending</text>
+                    <!-- Row 3 -->
+                    <line x1="72" y1="141" x2="392" y2="141" stroke="#f1f5f9" stroke-width="1"/>
+                    <text x="78" y="150" font-size="5.5" fill="#475569" font-family="Inter,sans-serif">25 Mar 2026</text>
+                    <text x="128" y="150" font-size="5.5" fill="#1e293b" font-family="Inter,sans-serif">CloudMesh</text>
+                    <text x="185" y="150" font-size="5.5" fill="#475569" font-family="Inter,sans-serif">ROC Annual Filing</text>
+                    <text x="270" y="150" font-size="5.5" fill="#1e293b" font-family="Inter,sans-serif">₹24,000</text>
+                    <rect x="315" y="145" width="36" height="10" rx="5" fill="#d1fae5"/>
+                    <text x="320" y="152" font-size="5" font-weight="700" fill="#059669" font-family="Inter,sans-serif">Confirmed</text>
+                    <!-- Row 4 -->
+                    <line x1="72" y1="157" x2="392" y2="157" stroke="#f1f5f9" stroke-width="1"/>
+                    <text x="78" y="166" font-size="5.5" fill="#475569" font-family="Inter,sans-serif">31 Mar 2026</text>
+                    <text x="128" y="166" font-size="5.5" fill="#1e293b" font-family="Inter,sans-serif">SwiftPay Inc.</text>
+                    <text x="185" y="166" font-size="5.5" fill="#475569" font-family="Inter,sans-serif">PF Remittance</text>
+                    <text x="270" y="166" font-size="5.5" fill="#1e293b" font-family="Inter,sans-serif">₹6,200</text>
+                    <rect x="315" y="161" width="36" height="10" rx="5" fill="#fef2f2"/>
+                    <text x="321" y="168" font-size="5" font-weight="700" fill="#ef4444" font-family="Inter,sans-serif">Overdue</text>
+                  </svg>
+                  <div class="ed-thumb-caption">Transactions</div>
+                </div>
+              </div>
+              <!-- ROW 2: Team Management | Notifications | Compliance Form -->
+              <div class="ed-thumb-row secondary">
+                <!-- 4: Team Management -->
+                <div class="ed-thumb" data-id="4" data-url="portal.complianceplatform.io/team">
+                  <div class="ed-thumb-overlay"><div class="ed-expand-icon">⤢ Click to expand</div></div>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200" style="width:100%;height:82px;display:block">
+                    <rect width="400" height="200" fill="#f8fafc"/>
+                    <rect width="60" height="200" fill="#f1f5f9"/>
+                    <rect x="0" y="0" width="3" height="200" fill="#0d9488" opacity=".4"/>
+                    <rect x="7" y="12" width="46" height="14" rx="7" fill="#ccfbf1"/>
+                    <text x="14" y="22" font-size="6" font-weight="700" fill="#0d9488" font-family="Inter,sans-serif">Admin Portal</text>
+                    <rect x="7" y="34" width="46" height="9" rx="3" fill="#e2e8f0"/>
+                    <rect x="7" y="49" width="46" height="9" rx="3" fill="#e2e8f0"/>
+                    <rect x="7" y="64" width="46" height="9" rx="3" fill="#e2e8f0"/>
+                    <rect x="7" y="79" width="46" height="9" rx="3" fill="#e2e8f0"/>
+                    <rect x="7" y="94" width="46" height="9" rx="3" fill="#e2e8f0"/>
+                    <rect x="0" y="109" width="60" height="16" fill="#0d9488"/>
+                    <text x="10" y="120" font-size="6" font-weight="700" fill="#ffffff" font-family="Inter,sans-serif">Team</text>
+                    <rect x="7" y="141" width="46" height="9" rx="3" fill="#e2e8f0"/>
+                    <rect x="7" y="156" width="46" height="9" rx="3" fill="#e2e8f0"/>
+                    <rect x="7" y="171" width="46" height="9" rx="3" fill="#e2e8f0"/>
+                    <rect x="7" y="186" width="46" height="9" rx="3" fill="#e2e8f0"/>
+                    <!-- Header -->
+                    <text x="72" y="20" font-size="11" font-weight="700" fill="#1e293b" font-family="Inter,sans-serif">Team Management</text>
+                    <text x="72" y="31" font-size="6" fill="#94a3b8" font-family="Inter,sans-serif">Vertex CA Partners · 8 members · 24 startups assigned</text>
+                    <rect x="316" y="12" width="76" height="16" rx="6" fill="#0d9488"/>
+                    <text x="326" y="23" font-size="6" font-weight="700" fill="#ffffff" font-family="Inter,sans-serif">+ Add Member</text>
+                    <!-- Card 1 -->
+                    <rect x="72" y="40" width="98" height="74" rx="7" fill="#ffffff" stroke="#e2e8f0"/>
+                    <circle cx="90" cy="56" r="10" fill="#0d9488"/>
+                    <text x="90" y="56" font-size="8" font-weight="700" fill="#ffffff" font-family="Inter,sans-serif" text-anchor="middle" dominant-baseline="central">R</text>
+                    <text x="104" y="53" font-size="7" font-weight="700" fill="#1e293b" font-family="Inter,sans-serif">Riya Sharma</text>
+                    <text x="104" y="63" font-size="5" fill="#94a3b8" font-family="Inter,sans-serif">riya@vertexca.in</text>
+                    <text x="80" y="78" font-size="5.5" fill="#64748b" font-family="Inter,sans-serif">Role</text>
+                    <rect x="116" y="73" width="46" height="11" rx="5" fill="#fef2f2"/>
+                    <text x="125" y="81" font-size="5.5" font-weight="700" fill="#ef4444" font-family="Inter,sans-serif">Admin</text>
+                    <text x="80" y="96" font-size="5.5" fill="#64748b" font-family="Inter,sans-serif">Status</text>
+                    <text x="116" y="96" font-size="5.5" font-weight="700" fill="#10b981" font-family="Inter,sans-serif">✓ ACTIVE</text>
+                    <!-- Card 2 -->
+                    <rect x="178" y="40" width="98" height="74" rx="7" fill="#ffffff" stroke="#e2e8f0"/>
+                    <circle cx="196" cy="56" r="10" fill="#7c3aed"/>
+                    <text x="196" y="56" font-size="8" font-weight="700" fill="#ffffff" font-family="Inter,sans-serif" text-anchor="middle" dominant-baseline="central">A</text>
+                    <text x="210" y="53" font-size="7" font-weight="700" fill="#1e293b" font-family="Inter,sans-serif">Arjun Mehta</text>
+                    <text x="210" y="63" font-size="5" fill="#94a3b8" font-family="Inter,sans-serif">arjun@vertexca.in</text>
+                    <text x="186" y="78" font-size="5.5" fill="#64748b" font-family="Inter,sans-serif">Role</text>
+                    <rect x="222" y="73" width="44" height="11" rx="5" fill="#dbeafe"/>
+                    <text x="230" y="81" font-size="5.5" font-weight="700" fill="#3b82f6" font-family="Inter,sans-serif">Partner</text>
+                    <text x="186" y="96" font-size="5.5" fill="#64748b" font-family="Inter,sans-serif">Status</text>
+                    <text x="222" y="96" font-size="5.5" font-weight="700" fill="#10b981" font-family="Inter,sans-serif">✓ ACTIVE</text>
+                    <!-- Card 3 -->
+                    <rect x="284" y="40" width="108" height="74" rx="7" fill="#ffffff" stroke="#e2e8f0"/>
+                    <circle cx="302" cy="56" r="10" fill="#0891b2"/>
+                    <text x="302" y="56" font-size="8" font-weight="700" fill="#ffffff" font-family="Inter,sans-serif" text-anchor="middle" dominant-baseline="central">P</text>
+                    <text x="316" y="53" font-size="7" font-weight="700" fill="#1e293b" font-family="Inter,sans-serif">Priya Nair</text>
+                    <text x="316" y="63" font-size="5" fill="#94a3b8" font-family="Inter,sans-serif">priya@vertexca.in</text>
+                    <text x="292" y="78" font-size="5.5" fill="#64748b" font-family="Inter,sans-serif">Role</text>
+                    <rect x="328" y="73" width="54" height="11" rx="5" fill="#ecfdf5"/>
+                    <text x="333" y="81" font-size="5.5" font-weight="700" fill="#059669" font-family="Inter,sans-serif">Executive</text>
+                    <text x="292" y="96" font-size="5.5" fill="#64748b" font-family="Inter,sans-serif">Assigned</text>
+                    <rect x="328" y="89" width="54" height="11" rx="5" fill="#d1fae5"/>
+                    <text x="333" y="97" font-size="5.5" font-weight="700" fill="#059669" font-family="Inter,sans-serif">7 startups</text>
+                    <!-- Row 2 cards (partial) -->
+                    <rect x="72" y="122" width="98" height="70" rx="7" fill="#ffffff" stroke="#e2e8f0"/>
+                    <circle cx="90" cy="137" r="10" fill="#d97706"/>
+                    <text x="90" y="137" font-size="8" font-weight="700" fill="#ffffff" font-family="Inter,sans-serif" text-anchor="middle" dominant-baseline="central">S</text>
+                    <text x="104" y="134" font-size="7" font-weight="700" fill="#1e293b" font-family="Inter,sans-serif">Suresh Pillai</text>
+                    <text x="104" y="144" font-size="5" fill="#94a3b8" font-family="Inter,sans-serif">suresh@vertexca.in</text>
+                    <text x="80" y="159" font-size="5.5" fill="#64748b" font-family="Inter,sans-serif">Role</text>
+                    <rect x="116" y="154" width="44" height="11" rx="5" fill="#dbeafe"/>
+                    <text x="124" y="162" font-size="5.5" font-weight="700" fill="#3b82f6" font-family="Inter,sans-serif">Partner</text>
+                    <text x="80" y="179" font-size="5.5" fill="#64748b" font-family="Inter,sans-serif">Assigned</text>
+                    <rect x="116" y="172" width="46" height="11" rx="5" fill="#d1fae5"/>
+                    <text x="121" y="180" font-size="5.5" font-weight="700" fill="#059669" font-family="Inter,sans-serif">5 startups</text>
+                    <rect x="178" y="122" width="98" height="70" rx="7" fill="#ffffff" stroke="#e2e8f0"/>
+                    <circle cx="196" cy="137" r="10" fill="#be185d"/>
+                    <text x="196" y="137" font-size="8" font-weight="700" fill="#ffffff" font-family="Inter,sans-serif" text-anchor="middle" dominant-baseline="central">K</text>
+                    <text x="210" y="134" font-size="7" font-weight="700" fill="#1e293b" font-family="Inter,sans-serif">Kavita Rao</text>
+                    <text x="210" y="144" font-size="5" fill="#94a3b8" font-family="Inter,sans-serif">kavita@vertexca.in</text>
+                    <text x="186" y="159" font-size="5.5" fill="#64748b" font-family="Inter,sans-serif">Role</text>
+                    <rect x="222" y="154" width="54" height="11" rx="5" fill="#ecfdf5"/>
+                    <text x="227" y="162" font-size="5.5" font-weight="700" fill="#059669" font-family="Inter,sans-serif">Executive</text>
+                    <text x="186" y="179" font-size="5.5" fill="#64748b" font-family="Inter,sans-serif">Assigned</text>
+                    <rect x="222" y="172" width="46" height="11" rx="5" fill="#d1fae5"/>
+                    <text x="227" y="180" font-size="5.5" font-weight="700" fill="#059669" font-family="Inter,sans-serif">4 startups</text>
+                    <!-- Card 6: Dev Anand -->
+                    <rect x="284" y="122" width="108" height="70" rx="7" fill="#ffffff" stroke="#e2e8f0"/>
+                    <circle cx="302" cy="137" r="10" fill="#059669"/>
+                    <text x="302" y="137" font-size="8" font-weight="700" fill="#ffffff" font-family="Inter,sans-serif" text-anchor="middle" dominant-baseline="central">D</text>
+                    <text x="316" y="134" font-size="7" font-weight="700" fill="#1e293b" font-family="Inter,sans-serif">Dev Anand</text>
+                    <text x="316" y="144" font-size="5" fill="#94a3b8" font-family="Inter,sans-serif">dev@vertexca.in</text>
+                    <text x="292" y="159" font-size="5.5" fill="#64748b" font-family="Inter,sans-serif">Role</text>
+                    <rect x="328" y="154" width="54" height="11" rx="5" fill="#d1fae5"/>
+                    <text x="355" y="160" font-size="5.5" font-weight="700" fill="#059669" font-family="Inter,sans-serif" text-anchor="middle">Executive</text>
+                    <text x="292" y="179" font-size="5.5" fill="#64748b" font-family="Inter,sans-serif">Assigned</text>
+                    <rect x="328" y="172" width="46" height="11" rx="5" fill="#d1fae5"/>
+                    <text x="351" y="179" font-size="5.5" font-weight="700" fill="#059669" font-family="Inter,sans-serif" text-anchor="middle">3 startups</text>
+                  </svg>
+                  <div class="ed-thumb-caption">Team</div>
+                </div>
+                <!-- 5: Notifications -->
+                <div class="ed-thumb" data-id="5" data-url="portal.complianceplatform.io/notifications">
+                  <div class="ed-thumb-overlay"><div class="ed-expand-icon">⤢ Click to expand</div></div>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200" style="width:100%;height:82px;display:block">
+                    <rect width="400" height="200" fill="#f8fafc"/>
+                    <rect width="60" height="200" fill="#f1f5f9"/>
+                    <rect x="0" y="0" width="3" height="200" fill="#0d9488" opacity=".4"/>
+                    <rect x="7" y="12" width="46" height="14" rx="7" fill="#ccfbf1"/>
+                    <text x="14" y="22" font-size="6" font-weight="700" fill="#0d9488" font-family="Inter,sans-serif">Admin Portal</text>
+                    <rect x="7" y="34" width="46" height="9" rx="3" fill="#e2e8f0"/>
+                    <rect x="7" y="49" width="46" height="9" rx="3" fill="#e2e8f0"/>
+                    <rect x="7" y="64" width="46" height="9" rx="3" fill="#e2e8f0"/>
+                    <rect x="7" y="79" width="46" height="9" rx="3" fill="#e2e8f0"/>
+                    <rect x="7" y="94" width="46" height="9" rx="3" fill="#e2e8f0"/>
+                    <rect x="7" y="109" width="46" height="9" rx="3" fill="#e2e8f0"/>
+                    <rect x="0" y="124" width="60" height="16" fill="#0d9488"/>
+                    <text x="6" y="135" font-size="5.5" font-weight="700" fill="#ffffff" font-family="Inter,sans-serif">Notifications</text>
+                    <rect x="7" y="156" width="46" height="9" rx="3" fill="#e2e8f0"/>
+                    <rect x="7" y="171" width="46" height="9" rx="3" fill="#e2e8f0"/>
+                    <rect x="7" y="186" width="46" height="9" rx="3" fill="#e2e8f0"/>
+                    <!-- Header -->
+                    <text x="72" y="20" font-size="11" font-weight="700" fill="#1e293b" font-family="Inter,sans-serif">Notifications</text>
+                    <text x="72" y="31" font-size="6" fill="#94a3b8" font-family="Inter,sans-serif">Stay updated with your compliance activities</text>
+                    <rect x="316" y="12" width="76" height="14" rx="6" fill="#ffffff" stroke="#e2e8f0"/>
+                    <text x="326" y="22" font-size="5.5" fill="#475569" font-family="Inter,sans-serif">✓ Mark all read</text>
+                    <!-- Tabs -->
+                    <rect x="72" y="38" width="38" height="13" rx="6" fill="#0d9488"/>
+                    <text x="80" y="47" font-size="6" font-weight="700" fill="#ffffff" font-family="Inter,sans-serif">All (12)</text>
+                    <rect x="116" y="38" width="50" height="13" rx="6" fill="#ffffff" stroke="#e2e8f0"/>
+                    <text x="122" y="47" font-size="6" fill="#475569" font-family="Inter,sans-serif">Unread (5)</text>
+                    <rect x="172" y="38" width="34" height="13" rx="6" fill="#ffffff" stroke="#e2e8f0"/>
+                    <text x="180" y="47" font-size="6" fill="#475569" font-family="Inter,sans-serif">Read</text>
+                    <!-- Notif 1 -->
+                    <rect x="72" y="58" width="320" height="32" rx="6" fill="#f0fdfa" stroke="#5eead4" stroke-width=".8"/>
+                    <circle cx="85" cy="74" r="6" fill="#ccfbf1" stroke="#0d9488" stroke-width=".8"/>
+                    <text x="85" y="74" font-size="6" fill="#0d9488" font-family="Inter,sans-serif" text-anchor="middle" dominant-baseline="central">✓</text>
+                    <text x="96" y="69" font-size="6.5" font-weight="700" fill="#1e293b" font-family="Inter,sans-serif">GST Filing Completed — NovaSpark Pvt. Ltd.</text>
+                    <text x="96" y="80" font-size="5.5" fill="#64748b" font-family="Inter,sans-serif">Filed by Riya Sharma · Q4 FY2025-26 · ₹18,500 confirmed</text>
+                    <text x="96" y="88" font-size="5" fill="#94a3b8" font-family="Inter,sans-serif">2h ago</text>
+                    <circle cx="382" cy="70" r="3" fill="#0d9488"/>
+                    <!-- Notif 2 -->
+                    <rect x="72" y="96" width="320" height="32" rx="6" fill="#ffffff" stroke="#e2e8f0"/>
+                    <circle cx="85" cy="112" r="6" fill="#fef3c7" stroke="#f59e0b" stroke-width=".8"/>
+                    <text x="85" y="112" font-size="6" fill="#d97706" font-family="Inter,sans-serif" text-anchor="middle" dominant-baseline="central">!</text>
+                    <text x="96" y="107" font-size="6.5" font-weight="700" fill="#1e293b" font-family="Inter,sans-serif">Document Pending — CloudMesh Technologies</text>
+                    <text x="96" y="118" font-size="5.5" fill="#64748b" font-family="Inter,sans-serif">ROC Annual Filing · Balance sheet awaiting upload by Arjun Mehta</text>
+                    <text x="96" y="126" font-size="5" fill="#94a3b8" font-family="Inter,sans-serif">5h ago</text>
+                    <circle cx="382" cy="108" r="3" fill="#0d9488"/>
+                    <!-- Notif 3 -->
+                    <rect x="72" y="134" width="320" height="32" rx="6" fill="#ffffff" stroke="#e2e8f0"/>
+                    <circle cx="85" cy="150" r="6" fill="#fef2f2" stroke="#ef4444" stroke-width=".8"/>
+                    <text x="85" y="150" font-size="7" fill="#ef4444" font-family="Inter,sans-serif" text-anchor="middle" dominant-baseline="central">!</text>
+                    <text x="96" y="145" font-size="6.5" font-weight="700" fill="#1e293b" font-family="Inter,sans-serif">Overdue Alert — SwiftPay Inc. · PF Remittance</text>
+                    <text x="96" y="156" font-size="5.5" fill="#64748b" font-family="Inter,sans-serif">Due date passed · ₹6,200 · Assigned to Suresh Pillai</text>
+                    <text x="96" y="164" font-size="5" fill="#94a3b8" font-family="Inter,sans-serif">1d ago</text>
+                  </svg>
+                  <div class="ed-thumb-caption">Notifications</div>
+                </div>
+                <!-- 6: Compliance Deadline Form -->
+                <div class="ed-thumb" data-id="6" data-url="portal.complianceplatform.io/compliance/form">
+                  <div class="ed-thumb-overlay"><div class="ed-expand-icon">⤢ Click to expand</div></div>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200" style="width:100%;height:82px;display:block">
+                    <rect width="400" height="200" fill="#f8fafc"/>
+                    <rect width="60" height="200" fill="#f1f5f9"/>
+                    <rect x="0" y="0" width="3" height="200" fill="#0d9488" opacity=".4"/>
+                    <rect x="7" y="12" width="46" height="14" rx="7" fill="#ccfbf1"/>
+                    <text x="14" y="22" font-size="6" font-weight="700" fill="#0d9488" font-family="Inter,sans-serif">Admin Portal</text>
+                    <rect x="7" y="34" width="46" height="9" rx="3" fill="#e2e8f0"/>
+                    <rect x="7" y="49" width="46" height="9" rx="3" fill="#e2e8f0"/>
+                    <rect x="0" y="64" width="60" height="16" fill="#0d9488"/>
+                    <text x="6" y="75" font-size="5.5" font-weight="700" fill="#ffffff" font-family="Inter,sans-serif">Create Compliance</text>
+                    <rect x="7" y="86" width="46" height="9" rx="3" fill="#e2e8f0"/>
+                    <rect x="7" y="101" width="46" height="9" rx="3" fill="#e2e8f0"/>
+                    <rect x="7" y="116" width="46" height="9" rx="3" fill="#e2e8f0"/>
+                    <rect x="7" y="131" width="46" height="9" rx="3" fill="#e2e8f0"/>
+                    <rect x="7" y="146" width="46" height="9" rx="3" fill="#e2e8f0"/>
+                    <rect x="7" y="161" width="46" height="9" rx="3" fill="#e2e8f0"/>
+                    <rect x="7" y="176" width="46" height="9" rx="3" fill="#e2e8f0"/>
+                    <!-- Form card continued -->
+                    <rect x="72" y="8" width="320" height="184" rx="8" fill="#ffffff" stroke="#e2e8f0"/>
+                    <rect x="80" y="18" width="3" height="10" rx="1" fill="#0d9488"/>
+                    <text x="87" y="27" font-size="7" font-weight="700" fill="#1e293b" font-family="Inter,sans-serif">Deadline &amp; Priority</text>
+                    <text x="80" y="44" font-size="6" fill="#475569" font-family="Inter,sans-serif">Due Date *</text>
+                    <rect x="80" y="47" width="120" height="14" rx="5" fill="#f8fafc" stroke="#e2e8f0"/>
+                    <text x="88" y="57" font-size="6" fill="#475569" font-family="Inter,sans-serif">31 / 03 / 2026</text>
+                    <text x="210" y="44" font-size="6" fill="#475569" font-family="Inter,sans-serif">Severity Level *</text>
+                    <rect x="210" y="47" width="120" height="14" rx="5" fill="#fef3c7" stroke="#f59e0b" stroke-width=".8"/>
+                    <text x="218" y="57" font-size="6" fill="#d97706" font-weight="600" font-family="Inter,sans-serif">High</text>
+                    <rect x="80" y="72" width="3" height="10" rx="1" fill="#0d9488"/>
+                    <text x="87" y="81" font-size="7" font-weight="700" fill="#1e293b" font-family="Inter,sans-serif">Required Documents</text>
+                    <rect x="80" y="86" width="270" height="13" rx="5" fill="#f8fafc" stroke="#e2e8f0"/>
+                    <text x="88" y="95" font-size="5.5" fill="#475569" font-family="Inter,sans-serif">GSTR-1 Summary, Sales Register, Invoice List</text>
+                    <rect x="80" y="104" width="66" height="11" rx="5" fill="#f0fdfa" stroke="#5eead4" stroke-width=".8"/>
+                    <text x="87" y="112" font-size="5.5" fill="#0d9488" font-family="Inter,sans-serif">+ Add Document</text>
+                    <rect x="80" y="124" width="3" height="10" rx="1" fill="#0d9488"/>
+                    <text x="87" y="133" font-size="7" font-weight="700" fill="#1e293b" font-family="Inter,sans-serif">Payment Information</text>
+                    <rect x="80" y="140" width="9" height="9" rx="2" fill="#0d9488"/>
+                    <text x="83" y="147" font-size="6" fill="#ffffff" font-family="Inter,sans-serif">✓</text>
+                    <text x="94" y="148" font-size="6" fill="#475569" font-family="Inter,sans-serif">Payment required · Estimated: ₹18,500</text>
+                    <rect x="80" y="162" width="62" height="16" rx="7" fill="#ffffff" stroke="#e2e8f0"/>
+                    <text x="97" y="173" font-size="6.5" fill="#475569" font-family="Inter,sans-serif" text-anchor="middle">Cancel</text>
+                    <rect x="152" y="162" width="110" height="16" rx="7" fill="#0d9488"/>
+                    <text x="207" y="173" font-size="6.5" font-weight="700" fill="#ffffff" font-family="Inter,sans-serif" text-anchor="middle">Create Compliance</text>
+                  </svg>
+                  <div class="ed-thumb-caption">Compliance Form</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="ed-hero-wrap">
+              <div class="ed-hero" id="ed6-hero-inner">
+                <div class="ed-browser-bar">
+                  <div class="ed-dots">
+                    <span class="ed-dot red"></span>
+                    <span class="ed-dot yellow"></span>
+                    <span class="ed-dot green"></span>
+                  </div>
+                  <div class="ed-url">
+                    <i class="fa-solid fa-lock" style="font-size: 8px;"></i>
+                    <span id="ed6-url-text">portal.complianceplatform.io/dashboard</span>
+                  </div>
+                </div>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 400" style="width:100%;display:block;border-radius:0 0 10px 10px">
+                  <defs>
+                    <linearGradient id="heroSide" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#f1f5f9"/><stop offset="100%" stop-color="#f8fafc"/></linearGradient>
+                  </defs>
+                  <rect width="720" height="400" fill="#f8fafc"/>
+                  <!-- Sidebar -->
+                  <rect width="136" height="400" fill="url(#heroSide)"/>
+                  <rect x="0" y="0" width="3" height="400" fill="#0d9488" opacity=".5"/>
+                  <!-- Logo area -->
+                  <rect x="12" y="16" width="112" height="28" rx="14" fill="#ccfbf1"/>
+                  <circle cx="28" cy="30" r="8" fill="#0d9488"/>
+                  <text x="28" y="30" font-size="7" font-weight="700" fill="#ffffff" font-family="Inter,sans-serif" text-anchor="middle" dominant-baseline="central">CP</text>
+                  <text x="42" y="27" font-size="8" font-weight="700" fill="#0f766e" font-family="Inter,sans-serif">Compliance</text>
+                  <text x="42" y="38" font-size="6" fill="#94a3b8" font-family="Inter,sans-serif">PLATFORM</text>
+                  <!-- Admin badge -->
+                  <rect x="12" y="52" width="84" height="16" rx="8" fill="#f0fdfa" stroke="#5eead4" stroke-width=".8"/>
+                  <text x="20" y="63" font-size="6" font-weight="700" fill="#0d9488" font-family="Inter,sans-serif">✓ Admin Portal</text>
+                  <!-- Active: Dashboard -->
+                  <rect x="0" y="76" width="136" height="26" fill="#0d9488"/>
+                  <text x="20" y="93" font-size="8" font-weight="700" fill="#ffffff" font-family="Inter,sans-serif">Dashboard</text>
+                  <!-- Nav items -->
+                  <text x="20" y="120" font-size="7.5" fill="#64748b" font-family="Inter,sans-serif">Add Startup</text>
+                  <text x="20" y="142" font-size="7.5" fill="#64748b" font-family="Inter,sans-serif">My Startups</text>
+                  <text x="20" y="164" font-size="7.5" fill="#64748b" font-family="Inter,sans-serif">Create Compliance</text>
+                  <text x="20" y="186" font-size="7.5" fill="#64748b" font-family="Inter,sans-serif">Tasks</text>
+                  <text x="20" y="208" font-size="7.5" fill="#64748b" font-family="Inter,sans-serif">Transactions</text>
+                  <text x="20" y="230" font-size="7.5" fill="#64748b" font-family="Inter,sans-serif">Team</text>
+                  <text x="20" y="252" font-size="7.5" fill="#64748b" font-family="Inter,sans-serif">Notifications</text>
+                  <text x="20" y="274" font-size="7.5" fill="#64748b" font-family="Inter,sans-serif">Settings</text>
+                  <!-- User card at bottom -->
+                  <rect x="8" y="356" width="120" height="36" rx="8" fill="#ffffff" stroke="#e2e8f0"/>
+                  <circle cx="24" cy="374" r="10" fill="#0d9488"/>
+                  <text x="24" y="374" font-size="8" font-weight="700" fill="#ffffff" font-family="Inter,sans-serif" text-anchor="middle" dominant-baseline="central">R</text>
+                  <text x="40" y="370" font-size="7" font-weight="700" fill="#1e293b" font-family="Inter,sans-serif">Riya Sharma</text>
+                  <text x="40" y="381" font-size="5.5" fill="#94a3b8" font-family="Inter,sans-serif">riya@vertexca.in</text>
+                  <!-- Page header -->
+                  <text x="156" y="36" font-size="22" font-weight="700" fill="#1e293b" font-family="Inter,sans-serif">Dashboard</text>
+                  <text x="156" y="52" font-size="9" fill="#94a3b8" font-family="Inter,sans-serif">Welcome back, Riya. Here's your compliance overview.</text>
+                  <!-- Action buttons -->
+                  <rect x="490" y="17" width="100" height="26" rx="8" fill="#ffffff" stroke="#e2e8f0"/>
+                  <text x="540" y="33" font-size="8.5" fill="#475569" font-family="Inter,sans-serif" text-anchor="middle">+ Add Startup</text>
+                  <rect x="600" y="17" width="114" height="26" rx="8" fill="#0d9488"/>
+                  <text x="657" y="33" font-size="8.5" font-weight="700" fill="#ffffff" font-family="Inter,sans-serif" text-anchor="middle">Create Compliance</text>
+                  <!-- Stat cards (3 × 178px with 12px gaps, x=156–714) -->
+                  <!-- Card 1: Total Startups -->
+                  <rect x="156" y="62" width="178" height="78" rx="12" fill="#ffffff" stroke="#e2e8f0"/>
+                  <text x="172" y="82" font-size="7.5" font-weight="600" fill="#94a3b8" font-family="Inter,sans-serif">TOTAL STARTUPS</text>
+                  <text x="172" y="124" font-size="32" font-weight="800" fill="#1e293b" font-family="Inter,sans-serif">24</text>
+                  <rect x="302" y="68" width="24" height="24" rx="12" fill="#f0fdfa"/>
+                  <text x="307" y="84" font-size="12" fill="#0d9488" font-family="Inter,sans-serif">⊞</text>
+                  <!-- Card 2: Confirmed Payments -->
+                  <rect x="346" y="62" width="178" height="78" rx="12" fill="#ffffff" stroke="#e2e8f0"/>
+                  <text x="362" y="82" font-size="7" font-weight="600" fill="#94a3b8" font-family="Inter,sans-serif">CONFIRMED PAYMENTS</text>
+                  <text x="362" y="120" font-size="24" font-weight="800" fill="#1e293b" font-family="Inter,sans-serif">₹4,82,500</text>
+                  <rect x="492" y="68" width="24" height="24" rx="12" fill="#dcfce7"/>
+                  <text x="497" y="84" font-size="13" fill="#16a34a" font-family="Inter,sans-serif">↗</text>
+                  <!-- Card 3: Pending Payments -->
+                  <rect x="536" y="62" width="178" height="78" rx="12" fill="#ffffff" stroke="#e2e8f0"/>
+                  <text x="552" y="82" font-size="7" font-weight="600" fill="#94a3b8" font-family="Inter,sans-serif">PENDING PAYMENTS</text>
+                  <text x="552" y="120" font-size="24" font-weight="800" fill="#1e293b" font-family="Inter,sans-serif">₹76,200</text>
+                  <rect x="682" y="68" width="24" height="24" rx="12" fill="#fef3c7"/>
+                  <text x="687" y="84" font-size="11" fill="#d97706" font-family="Inter,sans-serif">⏱</text>
+                  <!-- Team Performance table -->
+                  <rect x="156" y="152" width="558" height="234" rx="12" fill="#ffffff" stroke="#e2e8f0"/>
+                  <text x="172" y="175" font-size="14" font-weight="700" fill="#1e293b" font-family="Inter,sans-serif">Team Performance</text>
+                  <!-- Column headers -->
+                  <line x1="156" y1="184" x2="714" y2="184" stroke="#f1f5f9" stroke-width="1.5"/>
+                  <text x="172" y="197" font-size="7" font-weight="700" fill="#94a3b8" font-family="Inter,sans-serif">NAME</text>
+                  <text x="388" y="197" font-size="7" font-weight="700" fill="#94a3b8" font-family="Inter,sans-serif">ROLE</text>
+                  <text x="472" y="197" font-size="7" font-weight="700" fill="#94a3b8" font-family="Inter,sans-serif">ASSIGNED STARTUPS</text>
+                  <text x="612" y="197" font-size="7" font-weight="700" fill="#94a3b8" font-family="Inter,sans-serif">COMPLIANCES FILED</text>
+                  <line x1="156" y1="203" x2="714" y2="203" stroke="#f1f5f9" stroke-width="1"/>
+                  <!-- Row 1: Arjun Mehta (Partner) -->
+                  <circle cx="186" cy="219" r="10" fill="#7c3aed"/>
+                  <text x="186" y="219" font-size="8" font-weight="700" fill="#ffffff" font-family="Inter,sans-serif" text-anchor="middle" dominant-baseline="central">A</text>
+                  <text x="202" y="223" font-size="10" font-weight="700" fill="#1e293b" font-family="Inter,sans-serif">Arjun Mehta</text>
+                  <rect x="388" y="211" width="52" height="16" rx="8" fill="#dbeafe"/>
+                  <text x="398" y="222" font-size="7.5" font-weight="700" fill="#3b82f6" font-family="Inter,sans-serif">PARTNER</text>
+                  <text x="516" y="223" font-size="10" fill="#1e293b" font-family="Inter,sans-serif">8</text>
+                  <text x="660" y="223" font-size="10" fill="#1e293b" font-family="Inter,sans-serif">14</text>
+                  <!-- Row 2: Priya Nair (Executive, sub-row) -->
+                  <line x1="172" y1="231" x2="714" y2="231" stroke="#f8fafc" stroke-width="1"/>
+                  <line x1="176" y1="231" x2="176" y2="245" stroke="#d1d5db" stroke-width="1"/>
+                  <line x1="176" y1="245" x2="184" y2="245" stroke="#d1d5db" stroke-width="1"/>
+                  <circle cx="196" cy="245" r="8" fill="#0891b2"/>
+                  <text x="196" y="245" font-size="7" font-weight="700" fill="#ffffff" font-family="Inter,sans-serif" text-anchor="middle" dominant-baseline="central">P</text>
+                  <text x="210" y="249" font-size="10" fill="#475569" font-family="Inter,sans-serif">Priya Nair</text>
+                  <rect x="388" y="238" width="62" height="14" rx="7" fill="#e0f2fe"/>
+                  <text x="396" y="248" font-size="7" font-weight="700" fill="#0891b2" font-family="Inter,sans-serif">EXECUTIVE</text>
+                  <text x="516" y="249" font-size="10" fill="#475569" font-family="Inter,sans-serif">7</text>
+                  <text x="660" y="249" font-size="10" fill="#475569" font-family="Inter,sans-serif">12</text>
+                  <!-- Row 3: Suresh Pillai (Partner) -->
+                  <line x1="156" y1="259" x2="714" y2="259" stroke="#f1f5f9" stroke-width="1"/>
+                  <circle cx="186" cy="274" r="10" fill="#d97706"/>
+                  <text x="186" y="274" font-size="8" font-weight="700" fill="#ffffff" font-family="Inter,sans-serif" text-anchor="middle" dominant-baseline="central">S</text>
+                  <text x="202" y="278" font-size="10" font-weight="700" fill="#1e293b" font-family="Inter,sans-serif">Suresh Pillai</text>
+                  <rect x="388" y="266" width="52" height="16" rx="8" fill="#dbeafe"/>
+                  <text x="398" y="277" font-size="7.5" font-weight="700" fill="#3b82f6" font-family="Inter,sans-serif">PARTNER</text>
+                  <text x="516" y="278" font-size="10" fill="#1e293b" font-family="Inter,sans-serif">5</text>
+                  <text x="660" y="278" font-size="10" fill="#1e293b" font-family="Inter,sans-serif">9</text>
+                  <!-- Row 4: Kavita Rao (Executive, sub-row) -->
+                  <line x1="172" y1="286" x2="714" y2="286" stroke="#f8fafc" stroke-width="1"/>
+                  <line x1="176" y1="286" x2="176" y2="300" stroke="#d1d5db" stroke-width="1"/>
+                  <line x1="176" y1="300" x2="184" y2="300" stroke="#d1d5db" stroke-width="1"/>
+                  <circle cx="196" cy="300" r="8" fill="#be185d"/>
+                  <text x="196" y="300" font-size="7" font-weight="700" fill="#ffffff" font-family="Inter,sans-serif" text-anchor="middle" dominant-baseline="central">K</text>
+                  <text x="210" y="304" font-size="10" fill="#475569" font-family="Inter,sans-serif">Kavita Rao</text>
+                  <rect x="388" y="293" width="62" height="14" rx="7" fill="#fce7f3"/>
+                  <text x="396" y="303" font-size="7" font-weight="700" fill="#be185d" font-family="Inter,sans-serif">EXECUTIVE</text>
+                  <text x="516" y="304" font-size="10" fill="#475569" font-family="Inter,sans-serif">4</text>
+                  <text x="660" y="304" font-size="10" fill="#475569" font-family="Inter,sans-serif">7</text>
+                  <!-- Row 5: Dev Anand (Executive, sub-row) -->
+                  <line x1="172" y1="312" x2="714" y2="312" stroke="#f8fafc" stroke-width="1"/>
+                  <line x1="176" y1="312" x2="176" y2="326" stroke="#d1d5db" stroke-width="1"/>
+                  <line x1="176" y1="326" x2="184" y2="326" stroke="#d1d5db" stroke-width="1"/>
+                  <circle cx="196" cy="326" r="8" fill="#059669"/>
+                  <text x="196" y="326" font-size="7" font-weight="700" fill="#ffffff" font-family="Inter,sans-serif" text-anchor="middle" dominant-baseline="central">D</text>
+                  <text x="210" y="330" font-size="10" fill="#475569" font-family="Inter,sans-serif">Dev Anand</text>
+                  <rect x="388" y="319" width="62" height="14" rx="7" fill="#d1fae5"/>
+                  <text x="396" y="329" font-size="7" font-weight="700" fill="#059669" font-family="Inter,sans-serif">EXECUTIVE</text>
+                  <text x="516" y="330" font-size="10" fill="#475569" font-family="Inter,sans-serif">4</text>
+                  <text x="660" y="330" font-size="10" fill="#475569" font-family="Inter,sans-serif">6</text>
+                  <!-- Row 6: Unassigned Executives -->
+                  <line x1="156" y1="340" x2="714" y2="340" stroke="#f1f5f9" stroke-width="1"/>
+                  <text x="202" y="358" font-size="10" font-weight="600" fill="#b0b8c4" font-family="Inter,sans-serif">Unassigned Executives</text>
+                  <rect x="388" y="350" width="44" height="14" rx="7" fill="#f1f5f9"/>
+                  <text x="397" y="360" font-size="7" font-weight="700" fill="#64748b" font-family="Inter,sans-serif">GROUP</text>
+                  <text x="516" y="358" font-size="10" fill="#b0b8c4" font-family="Inter,sans-serif">0</text>
+                  <text x="660" y="358" font-size="10" fill="#b0b8c4" font-family="Inter,sans-serif">0</text>
+                  <!-- Footer -->
+                  <text x="435" y="382" font-size="7.5" fill="#cbd5e1" font-family="Inter,sans-serif" text-anchor="middle">Vertex CA Partners · Last updated 26 Feb 2026</text>
+                </svg>
+              </div>
+
+              <div class="ed-status-badge">
+                <div class="ed-status-icon"><i class="fa-solid fa-check"></i></div>
+                <div>
+                  <p class="ed-status-top">System Status</p>
+                  <p class="ed-status-main">All Systems Active</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Footer -->
+          <div class="slide-footer-6">
+            <p>LaunchToday | Enterprise Dashboard Mockup</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 7: FULL STACK SERVICES -->
+    <section class="slide slide-7">
+      <div class="slide-content">
+        <div class="slide-number">7 / 13</div>
+        <div class="slide-container-7">
+          <div class="sidebar-accent-7"></div>
+          <div class="bg-pattern-7"><i class="fa-solid fa-layer-group" style="font-size: 400px;"></i></div>
+
+          <div class="header-section">
+            <div class="super-heading"><i class="fa-solid fa-list-check"></i><p>Comprehensive Coverage</p></div>
+            <div class="main-heading"><p>Services We Cover — Full Stack Compliance</p></div>
+          </div>
+
+          <div class="services-grid">
+            <!-- Incorporation Services -->
+            <div class="service-card">
+              <div class="card-header">
+                <div class="icon-box icon-blue"><i class="fa-solid fa-building"></i></div>
+                <p class="card-title">Incorporation Services</p>
+              </div>
+              <div class="service-list">
+                <div class="list-item"><i class="fa-solid fa-check check-icon"></i><p class="item-text">Private Limited Registration</p></div>
+                <div class="list-item"><i class="fa-solid fa-check check-icon"></i><p class="item-text">LLP Registration</p></div>
+                <div class="list-item"><i class="fa-solid fa-check check-icon"></i><p class="item-text">One Person Company (OPC)</p></div>
+                <div class="list-item"><i class="fa-solid fa-check check-icon"></i><p class="item-text">Section 8 Company</p></div>
+                <div class="list-item"><i class="fa-solid fa-check check-icon"></i><p class="item-text">Partnership Firm</p></div>
+                <div class="list-item"><i class="fa-solid fa-check check-icon"></i><p class="item-text">Startup India Recognition</p></div>
+                <div class="list-item"><i class="fa-solid fa-check check-icon"></i><p class="item-text">MSME / Udyam Registration</p></div>
+              </div>
+            </div>
+            <!-- Tax Registrations -->
+            <div class="service-card">
+              <div class="card-header">
+                <div class="icon-box icon-green"><i class="fa-solid fa-file-invoice-dollar"></i></div>
+                <p class="card-title">Tax Registrations</p>
+              </div>
+              <div class="service-list">
+                <div class="list-item"><i class="fa-solid fa-check check-icon"></i><p class="item-text">GST Registration</p></div>
+                <div class="list-item"><i class="fa-solid fa-check check-icon"></i><p class="item-text">TAN &amp; TDS Registration</p></div>
+                <div class="list-item"><i class="fa-solid fa-check check-icon"></i><p class="item-text">Professional Tax (PT)</p></div>
+                <div class="list-item"><i class="fa-solid fa-check check-icon"></i><p class="item-text">Import Export Code (IEC)</p></div>
+                <div class="list-item"><i class="fa-solid fa-check check-icon"></i><p class="item-text">Shop &amp; Establishment Act</p></div>
+                <div class="list-item"><i class="fa-solid fa-check check-icon"></i><p class="item-text">PF &amp; ESIC Registration</p></div>
+              </div>
+            </div>
+            <!-- Ongoing Compliance -->
+            <div class="service-card">
+              <div class="card-header">
+                <div class="icon-box icon-purple"><i class="fa-solid fa-rotate"></i></div>
+                <p class="card-title">Ongoing Compliance</p>
+              </div>
+              <div class="service-list">
+                <div class="list-item"><i class="fa-solid fa-check check-icon"></i><p class="item-text">ROC Annual Filings</p></div>
+                <div class="list-item"><i class="fa-solid fa-check check-icon"></i><p class="item-text">GST Monthly/Quarterly Filings</p></div>
+                <div class="list-item"><i class="fa-solid fa-check check-icon"></i><p class="item-text">TDS Return Filing</p></div>
+                <div class="list-item"><i class="fa-solid fa-check check-icon"></i><p class="item-text">Board Resolutions</p></div>
+                <div class="list-item"><i class="fa-solid fa-check check-icon"></i><p class="item-text">Share Allotments (PAS-3)</p></div>
+                <div class="list-item"><i class="fa-solid fa-check check-icon"></i><p class="item-text">Accounting &amp; Bookkeeping</p></div>
+                <div class="list-item"><i class="fa-solid fa-check check-icon"></i><p class="item-text">Payroll Processing</p></div>
+                <div class="list-item"><i class="fa-solid fa-check check-icon"></i><p class="item-text">DIR-3 KYC</p></div>
+              </div>
+            </div>
+            <!-- Advanced Support -->
+            <div class="service-card">
+              <div class="card-header">
+                <div class="icon-box icon-orange"><i class="fa-solid fa-shield-halved"></i></div>
+                <p class="card-title">Advanced Support</p>
+              </div>
+              <div class="service-list">
+                <div class="list-item"><i class="fa-solid fa-check check-icon"></i><p class="item-text">Due Diligence Preparation</p></div>
+                <div class="list-item"><i class="fa-solid fa-check check-icon"></i><p class="item-text">Investor Compliance Checks</p></div>
+                <div class="list-item"><i class="fa-solid fa-check check-icon"></i><p class="item-text">Cap Table Structuring</p></div>
+                <div class="list-item"><i class="fa-solid fa-check check-icon"></i><p class="item-text">ESOP Documentation</p></div>
+                <div class="list-item"><i class="fa-solid fa-check check-icon"></i><p class="item-text">Founders' Agreement</p></div>
+                <div class="list-item"><i class="fa-solid fa-check check-icon"></i><p class="item-text">SHA / SSA Advisory</p></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="slide-footer-7"><p>LaunchToday | End-to-End Solutions</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 8: COMPLIANCE = ECOSYSTEM CREDIBILITY -->
+    <section class="slide slide-8">
+      <div class="slide-content">
+        <div class="slide-number">8 / 13</div>
+        <div class="slide-container-8">
+          <div class="sidebar-accent-8"></div>
+          <div class="bg-pattern-8"></div>
+
+          <div class="header-section">
+            <div class="super-heading"><i class="fa-solid fa-magnifying-glass-dollar"></i><p>The Investor Perspective</p></div>
+            <div class="main-heading"><p>Compliance = Ecosystem Credibility</p></div>
+            <div class="sub-heading"><p>Investors look at compliance first. Governance failures are deal-breakers.</p></div>
+          </div>
+
+          <div class="compare-grid">
+            <div class="vs-center">VS</div>
+
+            <!-- Left: Non-Compliant -->
+            <div class="compare-card card-bad">
+              <div class="card-header-row">
+                <div class="card-icon-lg icon-bad"><i class="fa-solid fa-xmark"></i></div>
+                <div class="card-title-text text-bad"><p>Non-Compliant Startup</p></div>
+              </div>
+              <div class="comparison-list">
+                <div class="compare-item bad-item">
+                  <i class="fa-solid fa-circle-xmark item-icon"></i>
+                  <div class="item-content">
+                    <p class="item-title">Delays Funding Rounds</p>
+                    <p class="item-desc">Due diligence drags on for months as founders scramble to fix messy records and filings.</p>
+                  </div>
+                </div>
+                <div class="compare-item bad-item">
+                  <i class="fa-solid fa-arrow-trend-down item-icon"></i>
+                  <div class="item-content">
+                    <p class="item-title">Reduces Valuation</p>
+                    <p class="item-desc">Investors price in the risk of non-compliance, leading to lower term sheets and equity loss.</p>
+                  </div>
+                </div>
+                <div class="compare-item bad-item">
+                  <i class="fa-solid fa-thumbs-down item-icon"></i>
+                  <div class="item-content">
+                    <p class="item-title">Damages Credibility</p>
+                    <p class="item-desc">Reflects poorly on the incubator's mentorship quality and damages reputation with VCs.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right: LaunchToday Enabled -->
+            <div class="compare-card card-good">
+              <div class="investor-tag">INVESTOR READY</div>
+              <div class="card-header-row">
+                <div class="card-icon-lg icon-good"><i class="fa-solid fa-check"></i></div>
+                <div class="card-title-text text-good"><p>LaunchToday Enabled</p></div>
+              </div>
+              <div class="comparison-list">
+                <div class="compare-item good-item">
+                  <i class="fa-solid fa-circle-check item-icon"></i>
+                  <div class="item-content">
+                    <p class="item-title">Structurally Clean</p>
+                    <p class="item-desc">Every startup in your cohort is audit-ready from day one with organized data rooms.</p>
+                  </div>
+                </div>
+                <div class="compare-item good-item">
+                  <i class="fa-solid fa-handshake item-icon"></i>
+                  <div class="item-content">
+                    <p class="item-title">Zero Embarrassments</p>
+                    <p class="item-desc">You never have to explain a compliance failure to an investment committee or partner.</p>
+                  </div>
+                </div>
+                <div class="compare-item good-item">
+                  <i class="fa-solid fa-shield-halved item-icon"></i>
+                  <div class="item-content">
+                    <p class="item-title">Compliance as an Asset</p>
+                    <p class="item-desc">Clean governance becomes a competitive advantage that speeds up funding velocity.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="slide-footer-8"><p>LaunchToday | Why It Matters</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 9: REVENUE MODEL -->
+    <section class="slide slide-9">
+      <div class="slide-content">
+        <div class="slide-number">9 / 13</div>
+        <div class="slide-container-9">
+          <div class="sidebar-accent-9"></div>
+          <div class="bg-pattern-9"></div>
+
+          <div class="header-section">
+            <div class="super-heading"><i class="fa-solid fa-hand-holding-dollar"></i><p>Partnership Options</p></div>
+            <div class="main-heading"><p>Revenue Model — Win-Win</p></div>
+          </div>
+
+          <div class="content-area-9">
+            <div class="cards-container-9">
+              <div class="option-card">
+                <div class="card-number">01</div>
+                <div class="icon-circle"><i class="fa-solid fa-percent card-icon"></i></div>
+                <p class="card-title">Revenue Share<br/>Model</p>
+                <p class="card-desc">We share a percentage of the service fee for every startup referred by the incubator.</p>
+              </div>
+              <div class="option-card">
+                <div class="card-number">02</div>
+                <div class="icon-circle"><i class="fa-solid fa-box-open card-icon"></i></div>
+                <p class="card-title">Bundled<br/>Package</p>
+                <p class="card-desc">Include compliance in your incubation fee. We provide bulk rates, you keep the margin.</p>
+              </div>
+              <div class="option-card">
+                <div class="card-number">03</div>
+                <div class="icon-circle"><i class="fa-solid fa-tag card-icon"></i></div>
+                <p class="card-title">White-Label<br/>Partner</p>
+                <p class="card-desc">Your brand, our infrastructure. LaunchToday runs silently in the background.</p>
+              </div>
+              <div class="option-card">
+                <div class="card-number">04</div>
+                <div class="icon-circle"><i class="fa-solid fa-graduation-cap card-icon"></i></div>
+                <p class="card-title">Dedicated<br/>Program</p>
+                <p class="card-desc">Structured compliance bootcamp for cohorts with fixed pricing per batch.</p>
+              </div>
+            </div>
+
+            <div class="bottom-hero">
+              <div class="hero-pattern"></div>
+              <div class="hero-text-content">
+                <p class="hero-tagline">You don't spend. <span class="highlight-green">You earn.</span></p>
+                <p class="hero-sub">Turn compliance from a cost center into a revenue stream.</p>
+              </div>
+              <div class="hero-visual">
+                <div class="stat-badge">
+                  <p class="stat-val">Zero</p>
+                  <p class="stat-label">Upfront Cost</p>
+                </div>
+                <i class="fa-solid fa-arrow-right-long flow-arrow"></i>
+                <div class="stat-badge">
+                  <p class="stat-val">15-20%</p>
+                  <p class="stat-label">Avg Margin</p>
+                </div>
+                <i class="fa-solid fa-arrow-right-long flow-arrow"></i>
+                <div class="stat-badge" style="background-color: rgba(0,200,150,0.2); border-color: #00C896;">
+                  <p class="stat-val" style="color: white;">Profit</p>
+                  <p class="stat-label" style="color: #E2E8F0;">For Incubator</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="slide-footer-9"><p>LaunchToday | Business Model</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 10: WHY NOW -->
+    <section class="slide slide-10">
+      <div class="slide-content">
+        <div class="slide-number">10 / 13</div>
+        <div class="slide-container-10">
+          <div class="sidebar-accent-10"></div>
+          <div class="bg-pattern-10"></div>
+
+          <div class="header-section">
+            <div class="super-heading"><i class="fa-solid fa-triangle-exclamation"></i><p>Market Timing</p></div>
+            <div class="main-heading"><p>Why Now? The Landscape is Tightening</p></div>
+          </div>
+
+          <div class="grid-container-10">
+            <div class="driver-card card-mca">
+              <div class="icon-wrapper icon-mca"><i class="fa-solid fa-landmark"></i></div>
+              <div class="card-content">
+                <p class="card-title">MCA Scrutiny Increasing</p>
+                <p class="card-text">Ministry of Corporate Affairs has automated scrutiny. Director disqualification (DIR-3) and shell company strikes are now automated triggers.</p>
+              </div>
+            </div>
+            <div class="driver-card card-gst">
+              <div class="icon-wrapper icon-gst"><i class="fa-solid fa-file-invoice-dollar"></i></div>
+              <div class="card-content">
+                <p class="card-title">GST Penalties &amp; Audits</p>
+                <p class="card-text">GST registrations are being cancelled for non-filing. Mismatches in Input Tax Credit (ITC) now lead to immediate working capital freezes.</p>
+              </div>
+            </div>
+            <div class="driver-card card-fund">
+              <div class="icon-wrapper icon-fund"><i class="fa-solid fa-magnifying-glass-chart"></i></div>
+              <div class="card-content">
+                <p class="card-title">Funding Winter = Deeper DD</p>
+                <p class="card-text">Investors are risk-averse. "Messy cap tables" or missing secretarial records are no longer overlooked—they are deal-breakers.</p>
+              </div>
+            </div>
+            <div class="driver-card card-dpdp">
+              <div class="icon-wrapper icon-dpdp"><i class="fa-solid fa-user-shield"></i></div>
+              <div class="card-content">
+                <p class="card-title">DPDP Act Implications</p>
+                <p class="card-text">The new Digital Personal Data Protection Act imposes penalties up to ₹250 Cr. Startups need robust data governance frameworks now.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="urgent-banner">
+            <div>
+              <div style="display: flex; align-items: center;">
+                <i class="fa-solid fa-clock banner-icon"></i>
+                <p class="banner-text">Incubators cannot afford sloppy governance anymore.</p>
+              </div>
+              <p class="banner-sub">The era of "move fast and break things" does not apply to compliance.</p>
+            </div>
+            <div class="warning-badge">
+              <i class="fa-solid fa-circle-exclamation"></i>
+              <span>Compliance is Mandatory</span>
+            </div>
+          </div>
+
+          <div class="slide-footer-10"><p>LaunchToday | Regulatory Landscape 2026</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide slide-11">
+      <div class="slide-content">
+        <div class="slide-number">11 / 13</div>
+        <div class="slide-container-11">
+          <div class="sidebar-accent-11"></div>
+          <div class="bg-pattern-11"></div>
+          <!-- Header -->
+          <div class="header-section-11">
+            <div class="super-heading-11">
+              <i class="fa-solid fa-list-ol"></i>
+              <span>Onboarding Roadmap</span>
+            </div>
+            <div class="main-heading-11">How We Work With You — 5 Simple Steps</div>
+          </div>
+          <!-- Timeline -->
+          <div class="timeline-section-11">
+            <div class="timeline-track-11">
+              <div class="track-line-11"><div class="track-fill-11"></div></div>
+              <!-- Step 1 -->
+              <div class="step-item-11 step-active-11">
+                <div class="step-circle-11">
+                  <span class="step-number-11">1</span>
+                  <i class="fa-solid fa-handshake"></i>
+                </div>
+                <p class="step-title-11">Onboard<br/>Incubator</p>
+                <p class="step-desc-11">Sign MOU and set up admin dashboard access.</p>
+              </div>
+              <!-- Step 2 -->
+              <div class="step-item-11 step-active-11">
+                <div class="step-circle-11">
+                  <span class="step-number-11">2</span>
+                  <i class="fa-solid fa-users-viewfinder"></i>
+                </div>
+                <p class="step-title-11">Integrate<br/>Cohort</p>
+                <p class="step-desc-11">Sync current batch data and founders.</p>
+              </div>
+              <!-- Step 3 -->
+              <div class="step-item-11 step-active-11">
+                <div class="step-circle-11">
+                  <span class="step-number-11">3</span>
+                  <i class="fa-solid fa-rocket"></i>
+                </div>
+                <p class="step-title-11">Onboard<br/>Startups</p>
+                <p class="step-desc-11">Founders get login credentials &amp; doc vault.</p>
+              </div>
+              <!-- Step 4 -->
+              <div class="step-item-11 step-active-11">
+                <div class="step-circle-11">
+                  <span class="step-number-11">4</span>
+                  <i class="fa-solid fa-calendar-check"></i>
+                </div>
+                <p class="step-title-11">Assign<br/>Calendar</p>
+                <p class="step-desc-11">Automated due dates based on entity type.</p>
+              </div>
+              <!-- Step 5 -->
+              <div class="step-item-11 step-active-11">
+                <div class="step-circle-11">
+                  <span class="step-number-11">5</span>
+                  <i class="fa-solid fa-chart-line"></i>
+                </div>
+                <p class="step-title-11">Monthly<br/>Reporting</p>
+                <p class="step-desc-11">Tracking, alerts, and filing execution.</p>
+              </div>
+            </div>
+          </div>
+          <!-- Deliverables -->
+          <div class="deliverables-container-11">
+            <div class="deliverables-label-11">
+              <p class="del-heading-11">Your Deliverables</p>
+              <p class="del-sub-11">What you receive monthly</p>
+            </div>
+            <div class="del-cards-11">
+              <div class="del-card-11">
+                <div class="del-icon-11"><i class="fa-solid fa-file-contract"></i></div>
+                <div class="del-text-11">Monthly Compliance Report</div>
+              </div>
+              <div class="del-card-11">
+                <div class="del-icon-11" style="color:#F59E0B;"><i class="fa-solid fa-bell"></i></div>
+                <div class="del-text-11">Real-time Risk Alerts</div>
+              </div>
+              <div class="del-card-11">
+                <div class="del-icon-11" style="color:#3B82F6;"><i class="fa-solid fa-magnifying-glass-chart"></i></div>
+                <div class="del-text-11">Due Diligence Readiness Score</div>
+              </div>
+            </div>
+          </div>
+          <!-- Footer -->
+          <div class="slide-footer-11">
+            <span>LaunchToday | Seamless Integration</span>
+            <span>Onboarding Time: &lt; 1 Week</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide slide-12">
+      <div class="slide-content">
+        <div class="slide-number">12 / 13</div>
+        <div class="slide-container-12">
+          <div class="sidebar-accent-12"></div>
+          <div class="bg-pattern-12"></div>
+          <!-- Header -->
+          <div class="header-section-12">
+            <div class="left-header-12">
+              <div class="super-heading-12">
+                <i class="fa-solid fa-medal"></i>
+                <span>Credibility &amp; Trust</span>
+              </div>
+              <div class="main-heading-12">Why Us?</div>
+            </div>
+            <div class="founder-badge-12">
+              <p class="founder-label-12">Built By</p>
+              <p class="founder-name-12">FoundrVerse</p>
+            </div>
+          </div>
+          <!-- Badges Grid -->
+          <div class="badges-container-12">
+            <div class="badge-card-12">
+              <div class="card-top-accent-12"></div>
+              <div class="badge-header-12">
+                <div class="icon-shield-12">
+                  <i class="fa-solid fa-laptop-code"></i>
+                  <div class="check-badge-12"><i class="fa-solid fa-check"></i></div>
+                </div>
+                <p class="badge-title-12">Tech-Enabled<br/>Platform</p>
+              </div>
+              <p class="badge-desc-12">Not manual spreadsheets. A scalable tech stack designed for speed and accuracy.</p>
+            </div>
+            <div class="badge-card-12">
+              <div class="card-top-accent-12"></div>
+              <div class="badge-header-12">
+                <div class="icon-shield-12">
+                  <i class="fa-solid fa-table-columns"></i>
+                  <div class="check-badge-12"><i class="fa-solid fa-check"></i></div>
+                </div>
+                <p class="badge-title-12">Structured<br/>Dashboards</p>
+              </div>
+              <p class="badge-desc-12">Complete transparency. No more email chaos or lost documents.</p>
+            </div>
+            <div class="badge-card-12">
+              <div class="card-top-accent-12"></div>
+              <div class="badge-header-12">
+                <div class="icon-shield-12">
+                  <i class="fa-solid fa-person-digging"></i>
+                  <div class="check-badge-12"><i class="fa-solid fa-check"></i></div>
+                </div>
+                <p class="badge-title-12">Execution<br/>Focused</p>
+              </div>
+              <p class="badge-desc-12">We don't just advise; we file, fix, and maintain. We are doers, not just consultants.</p>
+            </div>
+            <div class="badge-card-12">
+              <div class="card-top-accent-12"></div>
+              <div class="badge-header-12">
+                <div class="icon-shield-12">
+                  <i class="fa-solid fa-handshake-simple"></i>
+                  <div class="check-badge-12"><i class="fa-solid fa-check"></i></div>
+                </div>
+                <p class="badge-title-12">Long-Term<br/>Partners</p>
+              </div>
+              <p class="badge-desc-12">Not transactional vendors. We grow with you from incorporation to IPO.</p>
+            </div>
+          </div>
+          <!-- Bottom Tagline -->
+          <div class="bottom-tagline-box-12">
+            <i class="fa-solid fa-quote-left quote-icon-12"></i>
+            <p class="tagline-text-12">We are building <span class="tagline-highlight-12">compliance infrastructure</span>, <span class="tagline-underline-12">not just selling one-time registrations.</span></p>
+          </div>
+          <!-- Footer -->
+          <div class="slide-footer-12">LaunchToday | The Compliance Engine</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide slide-13">
+      <div class="slide-content">
+        <div class="slide-number">13 / 13</div>
+        <div class="slide-container-13">
+          <div class="bg-pattern-13"></div>
+          <div class="glow-effect-13"></div>
+          <!-- Main Content -->
+          <div class="content-wrapper-13">
+            <!-- Left: Vision Text -->
+            <div class="text-section-13">
+              <div class="super-heading-13">The Bigger Vision</div>
+              <h1 class="main-heading-13">Compliance OS for<br/>Startup Ecosystems</h1>
+              <p class="sub-heading-13">Not just services. <span class="highlight-text-13">Infrastructure.</span></p>
+              <div class="vision-list-13">
+                <div class="vision-item-13">
+                  <div class="item-icon-13"><i class="fa-solid fa-shield-halved"></i></div>
+                  <p class="item-text-13">Every startup in your ecosystem is structurally compliant.</p>
+                </div>
+                <div class="vision-item-13">
+                  <div class="item-icon-13"><i class="fa-solid fa-file-signature"></i></div>
+                  <p class="item-text-13">Your incubator becomes <span class="hl">investor-ready</span> by design.</p>
+                </div>
+                <div class="vision-item-13">
+                  <div class="item-icon-13"><i class="fa-solid fa-network-wired"></i></div>
+                  <p class="item-text-13">The go-to compliance backbone for Indian startups.</p>
+                </div>
+              </div>
+            </div>
+            <!-- Right: OS Graphic -->
+            <div class="graphic-section-13">
+              <div class="os-core-13">
+                <div class="os-logo-13">Launch<br/>Today</div>
+                <div class="os-sub-13">OS Core</div>
+              </div>
+              <div class="orbit-ring-13 ring-1-13">
+                <div class="dot-icon-13 pos-1-13"><i class="fa-solid fa-gavel"></i></div>
+                <div class="dot-icon-13 pos-2-13"><i class="fa-solid fa-building"></i></div>
+                <div class="dot-icon-13 pos-3-13"><i class="fa-solid fa-file-invoice"></i></div>
+              </div>
+              <div class="orbit-ring-13 ring-2-13">
+                <div class="orbit-dot-13" style="top:0;left:50%;transform:translate(-50%,-50%)"></div>
+                <div class="orbit-dot-13" style="bottom:15%;right:5%;transform:translate(50%,50%)"></div>
+              </div>
+            </div>
+          </div>
+          <!-- Bottom CTA -->
+          <div class="cta-container-13">
+            <a class="cta-button-13" href="https://www.launchtoday.in/" target="_blank" rel="noopener noreferrer">
+              <span>Partner with LaunchToday Today</span>
+              <div class="cta-icon-13"><i class="fa-solid fa-arrow-right"></i></div>
+            </a>
+            <div class="contact-info-13">
+              <span>FoundrVerse</span>
+              <div class="separator-13"></div>
+              <span>launchtoday.in</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    // KEYBOARD NAVIGATION WITH SNAP SCROLL
+    const slides = document.querySelectorAll('.slide');
+    let currentSlide = 0;
+
+    function goToSlide(index) {
+      index = Math.max(0, Math.min(slides.length - 1, index));
+      currentSlide = index;
+      slides[index].scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    document.addEventListener('keydown', function(e) {
+      switch(e.key) {
+        case 'ArrowDown':
+        case ' ':
+          e.preventDefault();
+          goToSlide(currentSlide + 1);
+          break;
+
+        case 'ArrowUp':
+        case 'Backspace':
+          e.preventDefault();
+          goToSlide(currentSlide - 1);
+          break;
+
+        case 'Home':
+          e.preventDefault();
+          goToSlide(0);
+          break;
+
+        case 'End':
+          e.preventDefault();
+          goToSlide(slides.length - 1);
+          break;
+      }
+    });
+
+    // Keep currentSlide in sync when user scrolls manually
+    const deck = document.getElementById('deck');
+    deck.addEventListener('scroll', function() {
+      const scrollTop = deck.scrollTop;
+      const slideHeight = window.innerHeight;
+      currentSlide = Math.round(scrollTop / slideHeight);
+    });
+
+    // CHART INITIALIZATION
+    window.addEventListener('load', function() {
+      // Problem Statement Chart (Slide 2)
+      const ctx = document.getElementById('complianceChart');
+      if (ctx) {
+        new Chart(ctx, {
+          type: 'doughnut',
+          data: {
+            labels: ['Delayed Compliance', 'Timely Compliance'],
+            datasets: [{
+              data: [70, 30],
+              backgroundColor: ['#EF4444', '#E2E8F0'],
+              borderWidth: 0,
+              hoverOffset: 4
+            }]
+          },
+          options: {
+            cutout: '80%',
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { display: false },
+              tooltip: { enabled: false }
+            },
+            animation: {
+              animateScale: true,
+              animateRotate: true
+            }
+          }
+        });
+      }
+
+      // Dashboard Charts (Slide 6)
+      // Chart 2: Compliance Health (Doughnut)
+      const ctxHealth = document.getElementById('healthChart');
+      if (ctxHealth) {
+        new Chart(ctxHealth, {
+          type: 'doughnut',
+          data: {
+            labels: ['Compliant', 'Warning', 'Critical'],
+            datasets: [{
+              data: [85, 10, 5],
+              backgroundColor: ['#22C55E', '#F59E0B', '#EF4444'],
+              borderWidth: 0,
+              hoverOffset: 4
+            }]
+          },
+          options: {
+            cutout: '75%',
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } }
+          }
+        });
+      }
+
+      // Chart 3: Filing Status (Bar)
+      const ctxFiling = document.getElementById('filingChart');
+      if (ctxFiling) {
+        new Chart(ctxFiling, {
+          type: 'bar',
+          data: {
+            labels: ['ROC', 'GST', 'TDS'],
+            datasets: [{
+              label: 'Filed',
+              data: [38, 30, 25],
+              backgroundColor: '#8B5CF6',
+              borderRadius: 4
+            }, {
+              label: 'Pending',
+              data: [4, 12, 17],
+              backgroundColor: '#E2E8F0',
+              borderRadius: 4
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              x: { stacked: true, grid: { display: false } },
+              y: { stacked: true, display: false }
+            },
+            plugins: { legend: { display: false } }
+          }
+        });
+      }
+
+      // Chart 6: Revenue (Line)
+      const ctxRevenue = document.getElementById('revenueChart');
+      if (ctxRevenue) {
+        new Chart(ctxRevenue, {
+          type: 'line',
+          data: {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+            datasets: [{
+              label: 'Revenue',
+              data: [12, 19, 15, 25, 32, 45],
+              borderColor: '#F97316',
+              backgroundColor: 'rgba(249, 115, 22, 0.1)',
+              borderWidth: 2,
+              tension: 0.4,
+              fill: true,
+              pointRadius: 0
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              x: { grid: { display: false }, ticks: { font: { size: 10 } } },
+              y: { display: false }
+            },
+            plugins: { legend: { display: false } }
+          }
+        });
+      }
+    });
+  </script>
+
+  <!-- ── Slide 6: Thumbnail ↔ Hero swap engine ── -->
+  <script>
+  (function () {
+    'use strict';
+
+    function initED6() {
+      var slide = document.querySelector('.slide-6');
+      if (!slide) return;
+
+      var heroInner = document.getElementById('ed6-hero-inner');
+      var urlText   = document.getElementById('ed6-url-text');
+      if (!heroInner) return;
+
+      /* Event delegation — survives SVG node replacement on every swap */
+      slide.addEventListener('click', function (e) {
+        var thumb = e.target.closest('.ed-thumb[data-id]');
+        if (!thumb) return;
+        if (thumb.classList.contains('ed-thumb-active')) return;
+
+        var thumbSvg = thumb.querySelector('svg');
+        var heroSvg  = heroInner.querySelector('svg');
+        if (!thumbSvg || !heroSvg) return;
+
+        /* Clone both SVGs before any DOM mutation */
+        var incomingSvg = thumbSvg.cloneNode(true);
+        var outgoingSvg = heroSvg.cloneNode(true);
+
+        /* Prepare incoming: fills hero frame, auto height, rounded bottom */
+        incomingSvg.removeAttribute('style');
+        incomingSvg.style.cssText =
+          'width:100%;display:block;border-radius:0 0 10px 10px';
+
+        /* Prepare outgoing: fits thumbnail slot */
+        outgoingSvg.removeAttribute('style');
+        outgoingSvg.style.cssText = 'width:100%;height:82px;display:block';
+
+        /* Capture current active before the timeout closure */
+        var prevActive = slide.querySelector('.ed-thumb.ed-thumb-active');
+
+        /* Animate hero out via CSS class */
+        heroInner.classList.add('ed6-swap-out');
+
+        setTimeout(function () {
+          /* Swap the SVG elements */
+          heroSvg.replaceWith(incomingSvg);
+          thumbSvg.replaceWith(outgoingSvg);
+
+          /* Update browser URL bar */
+          if (urlText) urlText.textContent = thumb.dataset.url || '';
+
+          /* Update active indicators */
+          if (prevActive) prevActive.classList.remove('ed-thumb-active');
+          thumb.classList.add('ed-thumb-active');
+
+          /* Two rAF frames: let paint settle, then remove class to trigger fade-in */
+          requestAnimationFrame(function () {
+            requestAnimationFrame(function () {
+              heroInner.classList.remove('ed6-swap-out');
+            });
+          });
+        }, 210);
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initED6);
+    } else {
+      initED6();
+    }
+  }());
+  </script>
+</body>
+</html>
+
