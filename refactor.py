@@ -1,7 +1,7 @@
 import os
 import re
 
-file_path = r'e:\Code\index.html'
+file_path = r'e:\Code\presentation.html'
 with open(file_path, 'r', encoding='utf-8') as f:
     content = f.read()
 
@@ -37,17 +37,16 @@ def script_repl(match):
     return ''
 content = re.sub(r'<script(?![^>]*\bsrc\b)[^>]*>.*?</script>', script_repl, content, flags=re.DOTALL | re.IGNORECASE)
 
-# Create refactored directory
-out_dir = r'e:\Code\refactored'
-os.makedirs(out_dir, exist_ok=True)
+# Save files in the same directory as the input file
+out_dir = r'e:\Code'
 
-with open(os.path.join(out_dir, 'index.html'), 'w', encoding='utf-8') as f:
+with open(os.path.join(out_dir, 'presentation.html'), 'w', encoding='utf-8', newline='\n') as f:
     f.write(content)
 
-with open(os.path.join(out_dir, 'styles.css'), 'w', encoding='utf-8') as f:
+with open(os.path.join(out_dir, 'styles.css'), 'w', encoding='utf-8', newline='\n') as f:
     f.write(css_content.strip())
 
-with open(os.path.join(out_dir, 'script.js'), 'w', encoding='utf-8') as f:
+with open(os.path.join(out_dir, 'script.js'), 'w', encoding='utf-8', newline='\n') as f:
     f.write(js_content.strip())
 
-print("Refactoring complete. Files created in e:\\Code\\refactored\\")
+print("Refactoring complete. Files updated in e:\\Code\\")
