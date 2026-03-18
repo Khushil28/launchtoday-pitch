@@ -1364,43 +1364,40 @@
     }
 
     .services-strip {
-      display: flex;
-      flex-direction: column;
-      gap: 11px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      gap: 14px;
       flex: 1;
       min-height: 0;
-      justify-content: center;
     }
 
     .service-row-7 {
       display: flex;
-      align-items: stretch;
+      flex-direction: column;
       background: white;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+      border-radius: 14px;
+      padding: 16px 18px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
       border: 1px solid #E2E8F0;
-      transition: box-shadow 0.2s;
-    }
-
-    .service-row-7:hover {
-      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+      min-height: 0;
     }
 
     .row-bar-7 {
-      width: 6px;
-      flex-shrink: 0;
+      display: none;
     }
 
     .row-label-7 {
       display: flex;
       align-items: center;
-      gap: 11px;
-      padding: 14px 16px;
-      width: 196px;
-      min-width: 196px;
-      border-right: 1px solid #F1F5F9;
+      gap: 12px;
+      padding: 0 0 11px 0;
+      width: 100%;
+      min-width: 0;
+      border-right: 0;
+      border-bottom: 1px solid #E2E8F0;
       flex-shrink: 0;
+      margin-bottom: 10px;
     }
 
     .row-icon-7 {
@@ -1415,7 +1412,7 @@
     }
 
     .row-title-7 {
-      font-size: 13px;
+      font-size: 18px;
       font-weight: 700;
       color: #1E3A5F;
       line-height: 1.25;
@@ -1423,40 +1420,50 @@
     }
 
     .row-tags-7 {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      padding: 12px 16px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      column-gap: 14px;
+      row-gap: 8px;
+      padding: 0;
       flex: 1;
-      align-content: center;
+      align-content: start;
     }
 
     .tag-7 {
       display: inline-flex;
       align-items: center;
       gap: 5px;
-      padding: 4px 11px;
-      border-radius: 20px;
+      padding: 0;
+      border-radius: 0;
       font-family: 'Inter', sans-serif;
-      font-size: 11.5px;
-      font-weight: 500;
-      white-space: nowrap;
+      font-size: 14px;
+      font-weight: 600;
+      color: #475569;
+      white-space: normal;
+      line-height: 1.3;
     }
 
-    .tag-7 i { font-size: 9px; }
+    .tag-7 i { font-size: 14px; color: #00C896; margin-top: 1px; }
 
-    .tag-blue   { background: #EFF6FF; color: #1E40AF; }
-    .tag-green  { background: #ECFDF5; color: #15803D; }
-    .tag-purple { background: #F5F3FF; color: #6D28D9; }
-    .tag-orange { background: #FFF7ED; color: #C2410C; }
+    .tag-blue, .tag-green, .tag-purple, .tag-orange {
+      background: transparent;
+      color: #475569;
+    }
 
     .bg-pattern-7 {
       position: absolute;
-      right: 0; bottom: 0;
-      width: 400px; height: 400px;
-      opacity: 0.03;
+      right: -36px; bottom: -36px;
+      width: 520px; height: 340px;
+      opacity: 0.22;
       z-index: 0;
       pointer-events: none;
+      background-image:
+        linear-gradient(330deg, rgba(226,232,240,0.8) 0 38%, transparent 38% 100%),
+        linear-gradient(25deg, rgba(241,245,249,0.95) 0 52%, transparent 52% 100%),
+        linear-gradient(330deg, rgba(226,232,240,0.55) 0 60%, transparent 60% 100%);
+      background-size: 250px 150px, 300px 180px, 220px 140px;
+      background-position: right bottom, 120px 80px, 260px 170px;
+      background-repeat: no-repeat;
     }
 
     .slide-footer-7 {
@@ -2816,9 +2823,9 @@
           <div class="ed-header">
             <div class="ed-header-row">
               <div class="ed-icon"><i class="fa-solid fa-shield-halved"></i></div>
-              <h1 class="ed-title">Enterprise Dashboard Overview</h1>
+              <h1 class="ed-title" id="ed6-module-title">Enterprise Dashboard Overview</h1>
             </div>
-            <p class="ed-subtitle">Centralized control for compliance, payments, and team management.</p>
+            <p class="ed-subtitle" id="ed6-module-description">Centralized control for compliance, payments, and team management.</p>
           </div>
 
           <div class="ed-main">
@@ -2853,7 +2860,7 @@
               <!-- ROW 1: My Startups | Create Compliance | Transactions -->
               <div class="ed-thumb-row">
                 <!-- 1: My Startups -->
-                <div class="ed-thumb" data-id="1" data-url="portal.complianceplatform.io/startups">
+                <div class="ed-thumb" data-id="1" data-module="startups" data-url="portal.complianceplatform.io/startups">
                   <div class="ed-thumb-overlay"><div class="ed-expand-icon">⤢ Click to expand</div></div>
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200" style="width:100%;height:82px;display:block">
                     <defs><linearGradient id="sb1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#f8fafc"/><stop offset="100%" stop-color="#f1f5f9"/></linearGradient></defs>
@@ -2913,7 +2920,7 @@
                   <div class="ed-thumb-caption">My Startups</div>
                 </div>
                 <!-- 2: Create Compliance -->
-                <div class="ed-thumb" data-id="2" data-url="portal.complianceplatform.io/compliance/create">
+                <div class="ed-thumb" data-id="2" data-module="create-compliance" data-url="portal.complianceplatform.io/compliance/create">
                   <div class="ed-thumb-overlay"><div class="ed-expand-icon">⤢ Click to expand</div></div>
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200" style="width:100%;height:82px;display:block">
                     <rect width="400" height="200" fill="#f8fafc"/>
@@ -2959,7 +2966,7 @@
                   <div class="ed-thumb-caption">Create Compliance</div>
                 </div>
                 <!-- 3: Transactions -->
-                <div class="ed-thumb" data-id="3" data-url="portal.complianceplatform.io/transactions">
+                <div class="ed-thumb" data-id="3" data-module="transactions" data-url="portal.complianceplatform.io/transactions">
                   <div class="ed-thumb-overlay"><div class="ed-expand-icon">⤢ Click to expand</div></div>
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200" style="width:100%;height:82px;display:block">
                     <rect width="400" height="200" fill="#f8fafc"/>
@@ -3043,7 +3050,7 @@
               <!-- ROW 2: Team Management | Notifications | Compliance Form -->
               <div class="ed-thumb-row secondary">
                 <!-- 4: Team Management -->
-                <div class="ed-thumb" data-id="4" data-url="portal.complianceplatform.io/team">
+                <div class="ed-thumb" data-id="4" data-module="team" data-url="portal.complianceplatform.io/team">
                   <div class="ed-thumb-overlay"><div class="ed-expand-icon">⤢ Click to expand</div></div>
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200" style="width:100%;height:82px;display:block">
                     <rect width="400" height="200" fill="#f8fafc"/>
@@ -3140,7 +3147,7 @@
                   <div class="ed-thumb-caption">Team</div>
                 </div>
                 <!-- 5: Notifications -->
-                <div class="ed-thumb" data-id="5" data-url="portal.complianceplatform.io/notifications">
+                <div class="ed-thumb" data-id="5" data-module="notifications" data-url="portal.complianceplatform.io/notifications">
                   <div class="ed-thumb-overlay"><div class="ed-expand-icon">⤢ Click to expand</div></div>
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200" style="width:100%;height:82px;display:block">
                     <rect width="400" height="200" fill="#f8fafc"/>
@@ -3198,7 +3205,7 @@
                   <div class="ed-thumb-caption">Notifications</div>
                 </div>
                 <!-- 6: Compliance Deadline Form -->
-                <div class="ed-thumb" data-id="6" data-url="portal.complianceplatform.io/compliance/form">
+                <div class="ed-thumb" data-id="6" data-module="compliance-form" data-url="portal.complianceplatform.io/compliance/form">
                   <div class="ed-thumb-overlay"><div class="ed-expand-icon">⤢ Click to expand</div></div>
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200" style="width:100%;height:82px;display:block">
                     <rect width="400" height="200" fill="#f8fafc"/>
@@ -3209,7 +3216,7 @@
                     <rect x="7" y="34" width="46" height="9" rx="3" fill="#e2e8f0"/>
                     <rect x="7" y="49" width="46" height="9" rx="3" fill="#e2e8f0"/>
                     <rect x="0" y="64" width="60" height="16" fill="#0d9488"/>
-                    <text x="6" y="75" font-size="5.5" font-weight="700" fill="#ffffff" font-family="Inter,sans-serif">Create Compliance</text>
+                    <text x="6" y="75" font-size="5.5" font-weight="700" fill="#ffffff" font-family="Inter,sans-serif">Compliance Form</text>
                     <rect x="7" y="86" width="46" height="9" rx="3" fill="#e2e8f0"/>
                     <rect x="7" y="101" width="46" height="9" rx="3" fill="#e2e8f0"/>
                     <rect x="7" y="116" width="46" height="9" rx="3" fill="#e2e8f0"/>
@@ -3419,7 +3426,7 @@
         <div class="slide-number">7 / 13</div>
         <div class="slide-container-7">
           <div class="sidebar-accent-7"></div>
-          <div class="bg-pattern-7"><i class="fa-solid fa-layer-group" style="font-size: 400px;"></i></div>
+          <div class="bg-pattern-7"></div>
 
           <div class="header-section">
             <div class="super-heading"><i class="fa-solid fa-list-check"></i><p>Comprehensive Coverage</p></div>
@@ -3436,13 +3443,13 @@
                 <p class="row-title-7">Incorporation Services</p>
               </div>
               <div class="row-tags-7">
-                <span class="tag-7 tag-blue"><i class="fa-solid fa-check"></i>Pvt Limited</span>
-                <span class="tag-7 tag-blue"><i class="fa-solid fa-check"></i>LLP</span>
-                <span class="tag-7 tag-blue"><i class="fa-solid fa-check"></i>One Person Co.</span>
+                <span class="tag-7 tag-blue"><i class="fa-solid fa-check"></i>Private Limited Registration</span>
+                <span class="tag-7 tag-blue"><i class="fa-solid fa-check"></i>LLP Registration</span>
+                <span class="tag-7 tag-blue"><i class="fa-solid fa-check"></i>One Person Company (OPC)</span>
                 <span class="tag-7 tag-blue"><i class="fa-solid fa-check"></i>Section 8 Company</span>
                 <span class="tag-7 tag-blue"><i class="fa-solid fa-check"></i>Partnership Firm</span>
-                <span class="tag-7 tag-blue"><i class="fa-solid fa-check"></i>Startup India</span>
-                <span class="tag-7 tag-blue"><i class="fa-solid fa-check"></i>MSME / Udyam</span>
+                <span class="tag-7 tag-blue"><i class="fa-solid fa-check"></i>Startup India Recognition</span>
+                <span class="tag-7 tag-blue"><i class="fa-solid fa-check"></i>MSME / Udyam Registration</span>
               </div>
             </div>
 
@@ -3455,11 +3462,11 @@
               </div>
               <div class="row-tags-7">
                 <span class="tag-7 tag-green"><i class="fa-solid fa-check"></i>GST Registration</span>
-                <span class="tag-7 tag-green"><i class="fa-solid fa-check"></i>TAN &amp; TDS</span>
-                <span class="tag-7 tag-green"><i class="fa-solid fa-check"></i>Professional Tax</span>
-                <span class="tag-7 tag-green"><i class="fa-solid fa-check"></i>Import Export Code</span>
-                <span class="tag-7 tag-green"><i class="fa-solid fa-check"></i>Shop &amp; Establishment</span>
-                <span class="tag-7 tag-green"><i class="fa-solid fa-check"></i>PF &amp; ESIC</span>
+                <span class="tag-7 tag-green"><i class="fa-solid fa-check"></i>TAN &amp; TDS Registration</span>
+                <span class="tag-7 tag-green"><i class="fa-solid fa-check"></i>Professional Tax (PT)</span>
+                <span class="tag-7 tag-green"><i class="fa-solid fa-check"></i>Import Export Code (IEC)</span>
+                <span class="tag-7 tag-green"><i class="fa-solid fa-check"></i>Shop &amp; Establishment Act</span>
+                <span class="tag-7 tag-green"><i class="fa-solid fa-check"></i>PF &amp; ESIC Registration</span>
               </div>
             </div>
 
@@ -3472,11 +3479,11 @@
               </div>
               <div class="row-tags-7">
                 <span class="tag-7 tag-purple"><i class="fa-solid fa-check"></i>ROC Annual Filings</span>
-                <span class="tag-7 tag-purple"><i class="fa-solid fa-check"></i>GST Filings</span>
-                <span class="tag-7 tag-purple"><i class="fa-solid fa-check"></i>TDS Return</span>
+                <span class="tag-7 tag-purple"><i class="fa-solid fa-check"></i>GST Monthly/Quarterly Filings</span>
+                <span class="tag-7 tag-purple"><i class="fa-solid fa-check"></i>TDS Return Filing</span>
                 <span class="tag-7 tag-purple"><i class="fa-solid fa-check"></i>Board Resolutions</span>
-                <span class="tag-7 tag-purple"><i class="fa-solid fa-check"></i>Share Allotments</span>
-                <span class="tag-7 tag-purple"><i class="fa-solid fa-check"></i>Bookkeeping</span>
+                <span class="tag-7 tag-purple"><i class="fa-solid fa-check"></i>Share Allotments (PAS-3)</span>
+                <span class="tag-7 tag-purple"><i class="fa-solid fa-check"></i>Accounting &amp; Bookkeeping</span>
                 <span class="tag-7 tag-purple"><i class="fa-solid fa-check"></i>Payroll Processing</span>
                 <span class="tag-7 tag-purple"><i class="fa-solid fa-check"></i>DIR-3 KYC</span>
               </div>
@@ -3490,9 +3497,9 @@
                 <p class="row-title-7">Advanced Support</p>
               </div>
               <div class="row-tags-7">
-                <span class="tag-7 tag-orange"><i class="fa-solid fa-check"></i>Due Diligence</span>
-                <span class="tag-7 tag-orange"><i class="fa-solid fa-check"></i>Investor Checks</span>
-                <span class="tag-7 tag-orange"><i class="fa-solid fa-check"></i>Cap Table</span>
+                <span class="tag-7 tag-orange"><i class="fa-solid fa-check"></i>Due Diligence Preparation</span>
+                <span class="tag-7 tag-orange"><i class="fa-solid fa-check"></i>Investor Compliance Checks</span>
+                <span class="tag-7 tag-orange"><i class="fa-solid fa-check"></i>Cap Table Structuring</span>
                 <span class="tag-7 tag-orange"><i class="fa-solid fa-check"></i>ESOP Documentation</span>
                 <span class="tag-7 tag-orange"><i class="fa-solid fa-check"></i>Founders' Agreement</span>
                 <span class="tag-7 tag-orange"><i class="fa-solid fa-check"></i>SHA / SSA Advisory</span>
@@ -4134,60 +4141,147 @@
     function initED6() {
       var slide = document.querySelector('.slide-6');
       if (!slide) return;
+      if (slide.dataset.ed6Bound === '1') return;
+      slide.dataset.ed6Bound = '1';
 
       var heroInner = document.getElementById('ed6-hero-inner');
       var urlText   = document.getElementById('ed6-url-text');
+      var titleText = document.getElementById('ed6-module-title');
+      var descText  = document.getElementById('ed6-module-description');
       if (!heroInner) return;
 
-      /* Event delegation — survives SVG node replacement on every swap */
-      slide.addEventListener('click', function (e) {
-        var thumb = e.target.closest('.ed-thumb[data-id]');
-        if (!thumb) return;
-        if (thumb.classList.contains('ed-thumb-active')) return;
+      var modules = {
+        startups: {
+          title: 'My Startups',
+          description: 'Track portfolio companies, monitor compliance scores, and manage startup-level actions in one place.',
+          imageSelector: '.ed-thumb[data-module="startups"] svg',
+          url: 'portal.complianceplatform.io/startups'
+        },
+        'create-compliance': {
+          title: 'Create Compliance',
+          description: 'Set up compliance obligations, assign deadlines, and define filing requirements for selected startups.',
+          imageSelector: '.ed-thumb[data-module="create-compliance"] svg',
+          url: 'portal.complianceplatform.io/compliance/create'
+        },
+        transactions: {
+          title: 'Transactions',
+          description: 'Review challans, verify statutory payments, and monitor confirmation status across your portfolio.',
+          imageSelector: '.ed-thumb[data-module="transactions"] svg',
+          url: 'portal.complianceplatform.io/transactions'
+        },
+        team: {
+          title: 'Team Management',
+          description: 'Assign managers, control permissions, and track startup ownership for each team member.',
+          imageSelector: '.ed-thumb[data-module="team"] svg',
+          url: 'portal.complianceplatform.io/team'
+        },
+        notifications: {
+          title: 'Notifications',
+          description: 'Stay updated with filing events, pending documents, and overdue alerts in real time.',
+          imageSelector: '.ed-thumb[data-module="notifications"] svg',
+          url: 'portal.complianceplatform.io/notifications'
+        },
+        'compliance-form': {
+          title: 'Compliance Form',
+          description: 'Capture due dates, priorities, payment requirements, and supporting documents through a guided form.',
+          imageSelector: '.ed-thumb[data-module="compliance-form"] svg',
+          url: 'portal.complianceplatform.io/compliance/form'
+        }
+      };
 
-        var thumbSvg = thumb.querySelector('svg');
-        var heroSvg  = heroInner.querySelector('svg');
-        if (!thumbSvg || !heroSvg) return;
+      var swapTimer = null;
+      var swapVersion = 0;
 
-        /* Clone both SVGs before any DOM mutation */
-        var incomingSvg = thumbSvg.cloneNode(true);
-        var outgoingSvg = heroSvg.cloneNode(true);
+      function setActiveThumb(nextThumb) {
+        var thumbs = slide.querySelectorAll('.ed-thumb[data-module]');
+        thumbs.forEach(function (item) {
+          item.classList.toggle('ed-thumb-active', item === nextThumb);
+        });
+      }
 
-        /* Prepare incoming: fills hero frame, auto height, rounded bottom */
+      function updateText(moduleState) {
+        if (!moduleState) return;
+        if (titleText && titleText.textContent !== moduleState.title) {
+          titleText.textContent = moduleState.title;
+        }
+        if (descText && descText.textContent !== moduleState.description) {
+          descText.textContent = moduleState.description;
+        }
+        if (urlText && urlText.textContent !== moduleState.url) {
+          urlText.textContent = moduleState.url;
+        }
+      }
+
+      function updateHeroImage(moduleKey) {
+        var moduleState = modules[moduleKey];
+        if (!moduleState) {
+          console.error('[Slide6] Module key not found:', moduleKey);
+          return;
+        }
+
+        var sourceSvg = slide.querySelector(moduleState.imageSelector);
+        var currentHeroSvg = heroInner.querySelector('svg');
+        if (!sourceSvg || !currentHeroSvg) {
+          console.error('[Slide6] Missing SVG node for module:', moduleKey);
+          return;
+        }
+
+        var incomingSvg = sourceSvg.cloneNode(true);
         incomingSvg.removeAttribute('style');
-        incomingSvg.style.cssText =
-          'width:100%;display:block;border-radius:0 0 10px 10px';
+        incomingSvg.style.cssText = 'width:100%;display:block;border-radius:0 0 10px 10px';
+        incomingSvg.id = 'ed6-main-preview';
 
-        /* Prepare outgoing: fits thumbnail slot */
-        outgoingSvg.removeAttribute('style');
-        outgoingSvg.style.cssText = 'width:100%;height:82px;display:block';
+        if (swapTimer) {
+          clearTimeout(swapTimer);
+          swapTimer = null;
+        }
+        var localVersion = ++swapVersion;
 
-        /* Capture current active before the timeout closure */
-        var prevActive = slide.querySelector('.ed-thumb.ed-thumb-active');
-
-        /* Animate hero out via CSS class */
         heroInner.classList.add('ed6-swap-out');
+        swapTimer = setTimeout(function () {
+          if (localVersion !== swapVersion) return;
 
-        setTimeout(function () {
-          /* Swap the SVG elements */
-          heroSvg.replaceWith(incomingSvg);
-          thumbSvg.replaceWith(outgoingSvg);
+          var liveHeroSvg = heroInner.querySelector('svg');
+          if (!liveHeroSvg) {
+            console.error('[Slide6] No live hero SVG found during swap');
+            return;
+          }
 
-          /* Update browser URL bar */
-          if (urlText) urlText.textContent = thumb.dataset.url || '';
-
-          /* Update active indicators */
-          if (prevActive) prevActive.classList.remove('ed-thumb-active');
-          thumb.classList.add('ed-thumb-active');
-
-          /* Two rAF frames: let paint settle, then remove class to trigger fade-in */
+          liveHeroSvg.replaceWith(incomingSvg);
           requestAnimationFrame(function () {
             requestAnimationFrame(function () {
               heroInner.classList.remove('ed6-swap-out');
             });
           });
+          swapTimer = null;
         }, 210);
+      }
+
+      function syncModule(moduleKey, thumbEl) {
+        var moduleState = modules[moduleKey];
+        if (!moduleState) {
+          console.error('[Slide6] Unknown module selected:', moduleKey);
+          return;
+        }
+        if (thumbEl) setActiveThumb(thumbEl);
+        updateText(moduleState);
+        updateHeroImage(moduleKey);
+      }
+
+      /* Event delegation — survives SVG node replacement on every swap */
+      slide.addEventListener('click', function (e) {
+        var thumb = e.target.closest('.ed-thumb[data-module]');
+        if (!thumb) return;
+        if (thumb.classList.contains('ed-thumb-active')) return;
+
+        var moduleKey = thumb.dataset.module;
+        syncModule(moduleKey, thumb);
       });
+
+      var initialActive = slide.querySelector('.ed-thumb.ed-thumb-active[data-module]');
+      if (initialActive) {
+        updateText(modules[initialActive.dataset.module]);
+      }
     }
 
     if (document.readyState === 'loading') {
