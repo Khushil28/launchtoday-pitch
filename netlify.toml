@@ -1,0 +1,12 @@
+[build]
+  publish = "."
+
+[[redirects]]
+  from = "/"
+  to = "/presentation.html"
+  status = 302
+
+[[redirects]]
+  from = "/*"
+  to = "/presentation.html"
+  status = 200
